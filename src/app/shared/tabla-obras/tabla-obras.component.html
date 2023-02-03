@@ -1,0 +1,71 @@
+<form>
+  <div class="form-group form-inline">
+    Buscar una obra:
+    <input class="form-control ml-5" type="text" name="searchTerm" />
+    <span class="ml-3">Loading...</span>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th sortable="name" scope="col">Nombre</th>
+          <th scope="col" sortable="area">Activo</th>
+          <th scope="col" sortable="population">Fecha creación</th>
+          <th scope="col" sortable="population">Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obra of listaObras; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <ngb-highlight [result]="obra?.Nombre"></ngb-highlight>
+          </td>
+          <td>
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Example checkcircleoutline icon"
+              [ngClass]="obra?.Estado ? 'active' : 'desactive'"
+              >{{ obra?.Estado ? "check" : "close" }}</mat-icon
+            >
+          </td>
+          <td>
+            <ngb-highlight
+              [result]="obra?.FechaCreacion?.toString()"
+            ></ngb-highlight>
+          </td>
+          <td>
+            <button class="btn-edit">
+              <mat-icon
+              class="edit"
+                aria-hidden="false"
+                aria-label="Example checkcircleoutline icon"
+                >edit_note</mat-icon
+              >
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- <div class="d-flex flex-wrap justify-content-between p-2">
+    <ngb-pagination
+      [collectionSize]="total$ | async"
+      [(page)]="service.page"
+      [pageSize]="service.pageSize"
+    >
+    </ngb-pagination>
+
+    <select
+      class="custom-select"
+      style="width: auto"
+      name="pageSize"
+      [(ngModel)]="service.pageSize"
+    >
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div> -->
+</form>

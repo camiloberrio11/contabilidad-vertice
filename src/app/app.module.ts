@@ -727,6 +727,8 @@ import { Error500Component } from './pages/error500/error500.component';
 import { Error503Component } from './pages/error503/error503.component';
 import { ObrasComponent } from './auth/obras/obras.component';
 import { EtiquetasComponent } from './auth/etiquetas/etiquetas.component';
+import { NgxLoadingModule } from "ngx-loading";
+import { TablaObrasComponent } from './shared/tabla-obras/tabla-obras.component';
 
 
 
@@ -1384,12 +1386,14 @@ import { EtiquetasComponent } from './auth/etiquetas/etiquetas.component';
 	Error503Component,
  ObrasComponent,
  EtiquetasComponent,
+ TablaObrasComponent,
 
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxLoadingModule.forRoot({}),
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
