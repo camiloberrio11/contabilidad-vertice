@@ -1,8 +1,13 @@
+import { EtiquetasComponent } from './auth/etiquetas/etiquetas.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminComponent } from './admin/admin.component';
 import { Index1Component } from './dashboard/index1/index1.component';
+import { LoginComponent } from './pages/login/login.component';
+import { Error400Component } from './pages/error400/error400.component';
+import { Error404Component } from './pages/error404/error404.component';
+
 // import { Index2Component } from './dashboard/index2/index2.component';
 // import { Index3Component } from './dashboard/index3/index3.component';
 // import { Index4Component } from './dashboard/index4/index4.component';
@@ -116,15 +121,12 @@ import { Index1Component } from './dashboard/index1/index1.component';
 // import { FormValidateComponent } from './forms/form-validate/form-validate.component';
 
 import { RegisterComponent } from './pages/register/register.component';
-import { LoginComponent } from './pages/login/login.component';
-
 import { LockScreenComponent } from './pages/lock-screen/lock-screen.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { Error400Component } from './pages/error400/error400.component';
 import { Error403Component } from './pages/error403/error403.component';
-import { Error404Component } from './pages/error404/error404.component';
 import { Error500Component } from './pages/error500/error500.component';
 import { Error503Component } from './pages/error503/error503.component';
+import { ObrasComponent } from './auth/obras/obras.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -132,9 +134,10 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     children: [
-      { path: '', component: Index1Component },
-      { path: 'index', component: Index1Component },
-      // { path: 'index-1', component: Index1Component },
+      { path: 'obra', component: ObrasComponent },
+      { path: 'etiqueta', component: EtiquetasComponent },
+
+      { path: 'index-1', component: Index1Component },
       // { path: 'dashboard', component: Index1Component },
       // { path: 'index-2', component: Index2Component },
       // { path: 'dashboard-2', component: Index2Component },

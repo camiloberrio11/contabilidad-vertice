@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleLogin(): void {
-    this.route.navigate(['/admin']);
+    this.route.navigate(['/admin/obra']);
   }
 
 }
