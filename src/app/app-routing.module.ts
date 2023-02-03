@@ -137,7 +137,7 @@ const routes: Routes = [
       { path: 'obra', component: ObrasComponent },
       { path: 'etiqueta', component: EtiquetasComponent },
 
-      { path: 'index-1', component: Index1Component },
+      // { path: 'index-1', component: Index1Component },
       // { path: 'dashboard', component: Index1Component },
       // { path: 'index-2', component: Index2Component },
       // { path: 'dashboard-2', component: Index2Component },

@@ -80,10 +80,10 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   .dashboard-select.mat-form-field-appearance-fill .mat-form-field-infix {
     padding: .25em 0 1em 0; }
   .dashboard-select .mat-select-arrow, .dashboard-select .mat-select-value {
-    color: #363062; }
+    color: #221C34; }
   .dashboard-select.style-1 {
     font-size: 16px;
-    border: 1px solid #363062;
+    border: 1px solid #221C34;
     border-radius: 3rem; }
     .dashboard-select.style-1.mat-form-field-appearance-fill .mat-form-field-infix {
       padding: 6px 0 18px 0; }
@@ -117,7 +117,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   margin-right: 4px; }
 
 .rating-widget .ng-star-inserted {
-  color: #363062;
+  color: #221C34;
   font-size: 30px; }
 
 .default-accordion {
@@ -130,7 +130,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     border: 0; }
     .default-accordion .card-header button {
       border-radius: 5px;
-      background: #363062;
+      background: #221C34;
       color: #fff;
       display: block;
       border: 0;
@@ -168,7 +168,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     padding: 0;
     border: 0; }
     .prevent-accordion .card-header button {
-      background: #363062;
+      background: #221C34;
       border-radius: 5px;
       color: #fff;
       display: block;
@@ -219,7 +219,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     -ms-transition: all 0.5s;
     transition: all 0.5s; }
     .default-nestable .dd-list .dd-item .nestable-item-container:hover {
-      background: #363062;
+      background: #221C34;
       color: #fff; }
       .default-nestable .dd-list .dd-item .nestable-item-container:hover button {
         color: #fff; }
@@ -270,8 +270,8 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .default-calendar .form-group .input-group .input-group-append button {
   background-image: none !important;
   padding: 0px;
-  border-color: #363062;
-  background: #363062;
+  border-color: #221C34;
+  background: #221C34;
   width: 45px;
   text-align: center; }
   .default-calendar .form-group .input-group .input-group-append button:after {
@@ -281,29 +281,29 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     padding: 0;
     font-size: 26px; }
   .default-calendar .form-group .input-group .input-group-append button:hover {
-    background: #363062; }
+    background: #221C34; }
     .default-calendar .form-group .input-group .input-group-append button:hover:after {
       color: #fff; }
   .default-calendar .form-group .input-group .input-group-append button:focus {
     box-shadow: none; }
 .default-calendar .weekend {
-  background-color: #363062; }
+  background-color: #221C34; }
 .default-calendar .ngb-dp-header {
-  background: #363062;
+  background: #221C34;
   padding: 8px 5px; }
   .default-calendar .ngb-dp-header .ngb-dp-navigation-chevron {
     border-color: #fff; }
   .default-calendar .ngb-dp-header .custom-select {
     color: #fff;
-    background: #363062;
+    background: #221C34;
     border-radius: 5px;
     margin: 0 5px;
     padding: 0 20px; }
 .default-calendar .ngb-dp-weekdays {
-  border: 1px solid #363062;
+  border: 1px solid #221C34;
   background: #fff; }
   .default-calendar .ngb-dp-weekdays .ngb-dp-weekday {
-    color: #363062;
+    color: #221C34;
     font-weight: 600;
     font-size: 15px;
     font-style: unset; }
@@ -320,7 +320,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   height: 40px;
   line-height: 40px; }
   .default-calendar [ngbDatepickerDayView]:active {
-    background-color: #363062 !important;
+    background-color: #221C34 !important;
     color: white !important; }
 .default-calendar .ngb-dp-navigation-select {
   flex: unset; }
@@ -331,13 +331,13 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   width: 100% !important; }
 .default-calendar .custom-day.range, .default-calendar .custom-day:hover {
   height: 40px;
-  background-color: #363062 !important; }
+  background-color: #221C34 !important; }
 .default-calendar .ngb-dp-month-name {
   padding: 8px 0px;
   height: auto; }
 
 .dashboard-full-calendar.fc .fc-button-primary {
-  background-color: #363062;
+  background-color: #221C34;
   color: #fff;
   border: 0; }
   .dashboard-full-calendar.fc .fc-button-primary:hover, .dashboard-full-calendar.fc .fc-button-primary.fc-button-active, .dashboard-full-calendar.fc .fc-button-primary:active {
@@ -358,10 +358,10 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   .dashboard-full-calendar.fc-theme-standard th a {
     color: #B5B5C3; }
 .dashboard-full-calendar .fc-h-event, .dashboard-full-calendar .fc-v-event {
-  background-color: #363062;
-  border-color: #363062; }
+  background-color: #221C34;
+  border-color: #221C34; }
 .dashboard-full-calendar .fc-daygrid-event-dot, .dashboard-full-calendar .fc-list-event-dot {
-  border-color: #363062 !important; }
+  border-color: #221C34 !important; }
 @media only screen and (max-width: 767px) {
   .dashboard-full-calendar.fc .fc-toolbar {
     display: block;
@@ -373,12 +373,12 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   margin-bottom: 10px; }
   .calendar-list .list-group-item {
     background: #f4f6fa;
-    color: #363062;
+    color: #221C34;
     border: 0;
     margin-bottom: 5px;
     border-radius: 6px;
     position: relative;
-    border-left: 4px solid #363062; }
+    border-left: 4px solid #221C34; }
 
 .calendar-checkbox {
   border-radius: 6px;
@@ -418,7 +418,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   width: 13px;
   border: 0;
   border-radius: 13px;
-  background: #363062; }
+  background: #221C34; }
   .default-carousel .carousel-indicators li.active {
     width: 30px; }
 
@@ -481,9 +481,9 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   .default-autocomplete .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .default-autocomplete .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
     /* transform: translateY(-2rem) scale(0.85) perspective(100px) translateZ(0.001px);
     -ms-transform: translateY(-2rem) scale(0.85); */
-    color: #363062; }
+    color: #221C34; }
   .default-autocomplete .mat-form-field.mat-focused .mat-form-field-ripple {
-    background-color: #363062; }
+    background-color: #221C34; }
 
 /* badge  */
 .mat-flat-button.mat-primary,
@@ -491,7 +491,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .mat-fab.mat-primary,
 .mat-mini-fab.mat-primary,
 .mat-badge-content {
-  background-color: #363062; }
+  background-color: #221C34; }
 
 .mat-badge-accent .mat-badge-content {
   background: #AC4CBC;
@@ -517,7 +517,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .default-mt-btn .mat-button.mat-primary,
 .default-mt-btn .mat-icon-button.mat-primary,
 .default-mt-btn .mat-stroked-button.mat-primary {
-  color: #363062; }
+  color: #221C34; }
 .default-mt-btn .example-label {
   font-size: 1rem !important;
   color: #000; }
@@ -586,17 +586,17 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element,
 .mat-checkbox:active:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element {
-  background: #363062; }
+  background: #221C34; }
 
 .mat-checkbox-indeterminate.mat-primary .mat-checkbox-background,
 .mat-checkbox-checked.mat-primary .mat-checkbox-background {
-  background-color: #363062; }
+  background-color: #221C34; }
 
 .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
-  background: #363062; }
+  background: #221C34; }
 
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-  color: #363062; }
+  color: #221C34; }
 
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
 .mat-checkbox-checked.mat-accent .mat-checkbox-background {
@@ -630,16 +630,16 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   color: rgba(0, 0, 0, 0.6); }
 .default-mt-chips .mat-chip.mat-standard-chip,
 .default-mt-chips .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
-  background-color: #363062;
+  background-color: #221C34;
   color: #fff; }
 .default-mt-chips .mat-form-field-appearance-legacy .mat-form-field-label,
 .default-mt-chips .mat-form-field-appearance-legacy .mat-hint,
 .default-mt-chips input.mat-chip-input::placeholder {
   color: rgba(0, 0, 0, 0.54); }
 .default-mt-chips .mat-form-field.mat-focused .mat-form-field-label {
-  color: #363062; }
+  color: #221C34; }
 .default-mt-chips .mat-form-field.mat-focused .mat-form-field-ripple {
-  background-color: #363062; }
+  background-color: #221C34; }
 .default-mt-chips .mat-chip.mat-standard-chip .mat-chip-remove {
   opacity: 1;
   color: rgba(255, 255, 255, 0.8); }
@@ -664,9 +664,9 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .default-mt-datepicker .mat-icon-button svg path {
   fill: rgba(0, 0, 0, 0.7); }
 .default-mt-datepicker .mat-form-field.mat-focused .mat-form-field-ripple {
-  background: #363062; }
+  background: #221C34; }
 .default-mt-datepicker .mat-form-field.mat-focused .mat-form-field-label {
-  color: #363062; }
+  color: #221C34; }
 .default-mt-datepicker .mat-form-field-appearance-fill.mat-form-field-disabled .mat-form-field-label {
   color: rgba(0, 0, 0, 0.5); }
 .default-mt-datepicker .mat-form-field-appearance-fill .mat-form-field-underline:before {
@@ -679,7 +679,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   background: rgba(172, 76, 188, 0.2); }
 
 .mat-calendar-body-selected {
-  background-color: #363062; }
+  background-color: #221C34; }
 
 .mat-calendar-body-in-range::before {
   background: rgba(54, 48, 98, 0.1); }
@@ -717,7 +717,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .default-mt-formfield .mat-form-field {
   width: 100%; }
 .default-mt-formfield .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #363062; }
+  color: #221C34; }
 .default-mt-formfield .example-container .mat-form-field + .mat-form-field {
   margin-left: 0 !important; }
 
@@ -731,7 +731,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .default-mt-progress .mat-progress-bar-buffer {
   background-color: #ebe9f4; }
 .default-mt-progress .mat-progress-bar-fill::after {
-  background-color: #363062; }
+  background-color: #221C34; }
 .default-mt-progress .mat-progress-bar {
   height: 8px;
   border-radius: 8px; }
@@ -754,14 +754,14 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   stroke: #AC4CBC; }
 
 .mat-progress-spinner circle, .mat-spinner circle {
-  stroke: #363062; }
+  stroke: #221C34; }
 
 .default-mt-spinner .example-margin {
   margin: 0 10px; }
 
 /* select  */
 .default-mt-select .mat-form-field.mat-focused .mat-form-field-label {
-  color: #363062; }
+  color: #221C34; }
 
 /* sidenav */
 .default-mt-sidenav .example-container {
@@ -777,7 +777,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .default-mt-slidetoggle .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
   background-color: #ebe9f4; }
 .default-mt-slidetoggle .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
-  background-color: #363062; }
+  background-color: #221C34; }
 .default-mt-slidetoggle .example-section {
   height: auto !important; }
 
@@ -800,7 +800,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .default-mt-stepper .mat-step-header .mat-step-icon-selected,
 .default-mt-stepper .mat-step-header .mat-step-icon-state-done,
 .default-mt-stepper .mat-step-header .mat-step-icon-state-edit {
-  background-color: #363062; }
+  background-color: #221C34; }
 @media only screen and (max-width: 575px) {
   .default-mt-stepper .mat-horizontal-stepper-header-container {
     display: block; }
@@ -846,7 +846,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .default-mt-table table.mat-table {
   width: 100%; }
 .default-mt-table .stickyColumns-table .mat-table-sticky {
-  background: #363062 !important; }
+  background: #221C34 !important; }
   .default-mt-table .stickyColumns-table .mat-table-sticky .mat-header-cell {
     color: #fff; }
   .default-mt-table .stickyColumns-table .mat-table-sticky .mat-cell {
@@ -876,11 +876,11 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 /* tabs */
 .default-mt-tabs .mat-tab-group.mat-primary .mat-ink-bar, .default-mt-tabs .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: #363062; }
+  background-color: #221C34; }
 .default-mt-tabs .mat-tab-body-content {
   padding: 10px 15px; }
 .default-mt-tabs .mat-tab-group.mat-background-primary > .mat-tab-header, .default-mt-tabs .mat-tab-group.mat-background-primary > .mat-tab-link-container, .default-mt-tabs .mat-tab-group.mat-background-primary > .mat-tab-header-pagination, .default-mt-tabs .mat-tab-nav-bar.mat-background-primary > .mat-tab-header, .default-mt-tabs .mat-tab-nav-bar.mat-background-primary > .mat-tab-link-container, .default-mt-tabs .mat-tab-nav-bar.mat-background-primary > .mat-tab-header-pagination {
-  background-color: #363062; }
+  background-color: #221C34; }
 .default-mt-tabs .mat-tab-group.mat-background-accent > .mat-tab-header, .default-mt-tabs .mat-tab-group.mat-background-accent > .mat-tab-link-container, .default-mt-tabs .mat-tab-group.mat-background-accent > .mat-tab-header-pagination, .default-mt-tabs .mat-tab-nav-bar.mat-background-accent > .mat-tab-header, .default-mt-tabs .mat-tab-nav-bar.mat-background-accent > .mat-tab-link-container, .default-mt-tabs .mat-tab-nav-bar.mat-background-accent > .mat-tab-header-pagination {
   background-color: #AC4CBC; }
 .default-mt-tabs .mat-tab-group.mat-accent.mat-background-accent > .mat-tab-header .mat-ink-bar, .default-mt-tabs .mat-tab-group.mat-accent.mat-background-accent > .mat-tab-link-container .mat-ink-bar, .default-mt-tabs .mat-tab-nav-bar.mat-accent.mat-background-accent > .mat-tab-header .mat-ink-bar, .default-mt-tabs .mat-tab-nav-bar.mat-accent.mat-background-accent > .mat-tab-link-container .mat-ink-bar {
@@ -897,6 +897,6 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 /* toolbar */
 .default-mt-toolbar .mat-toolbar.mat-primary {
-  background: #363062; }
+  background: #221C34; }
 
 /*# sourceMappingURL=dashboard.css.map */

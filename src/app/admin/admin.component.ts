@@ -7,12 +7,12 @@ import {SharedService} from '../shared.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  title = 'kripton';
+  title = 'Vertice';
   navSidebarClass: boolean = true;
   hamburgerClass: boolean = false;
 
     constructor(public sharedService: SharedService) {
-      
+
     }
 
   ngOnInit(): void {

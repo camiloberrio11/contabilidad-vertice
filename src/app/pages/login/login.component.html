@@ -8,13 +8,13 @@
               <div class="auth-form">
                 <div class="text-center mb-3">
                   <a [routerLink]="['/admin/index']"
-                    ><img src="assets/images/logo-full.png" alt=""
+                    ><img src="assets/images/logos/logo-vertice.png" alt=""
                   /></a>
                 </div>
-                <h4 class="text-center mb-4">Sign in your account</h4>
+                <h4 class="text-center mb-4">Inicia sesión con tu cuenta</h4>
                 <form action="['/admin/index']">
                   <div class="form-group">
-                    <label class="mb-1"><strong>Email</strong></label>
+                    <label class="mb-1"><strong>Correo</strong></label>
                     <input
                       type="email"
                       class="form-control"
@@ -22,7 +22,7 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label class="mb-1"><strong>Password</strong></label>
+                    <label class="mb-1"><strong>Contraseña</strong></label>
                     <input
                       type="password"
                       class="form-control"
@@ -42,30 +42,26 @@
                         <label
                           class="custom-control-label"
                           for="basic_checkbox_1"
-                          >Remember my preference</label
+                          >Acuerdame</label
                         >
                       </div>
                     </div>
                     <div class="form-group">
                       <a [routerLink]="['/page-forgot-password']"
-                        >Forgot Password?</a
+                        >Se te olvidó la contraseña?</a
                       >
                     </div>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-block" (click)="handleLogin()">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block"
+                      (click)="handleLogin()"
+                    >
                       Iniciar sesión
                     </button>
                   </div>
                 </form>
-                <div class="new-account mt-3">
-                  <p>
-                    Don't have an account?
-                    <a class="text-primary" [routerLink]="['/page-register']"
-                      >Sign up</a
-                    >
-                  </p>
-                </div>
               </div>
             </div>
           </div>
