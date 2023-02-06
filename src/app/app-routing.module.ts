@@ -7,16 +7,6 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './pages/login/login.component';
 import { Error404Component } from './pages/error404/error404.component';
 
-
-
-
-
-
-
-
-
-
-
 // import { NestableComponent } from './plugins/nestable/nestable.component';
 // import { LightGalleryComponent } from './plugins/light-gallery/light-gallery.component';
 
