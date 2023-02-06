@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SharedService } from './shared.service';
-import { NgbdSortableHeader } from './sortable.directive';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -61,7 +60,7 @@ import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/carg
 @NgModule({
   declarations: [
     AppComponent,
-    NgbdSortableHeader,
+
 
     AdminComponent,
     NavHeaderComponent,
