@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CrearObra, RespuestaObra } from 'src/app/models/Obra';
+import { CrearObra, Obra, RespuestaObra } from 'src/app/models/Obra';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CrearEtiqueta, RespuestaEtiqueta } from 'src/app/models/Etiqueta';
+import { CrearEtiqueta, Etiqueta, RespuestaEtiqueta } from 'src/app/models/Etiqueta';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class BackendService {
     );
   }
 
-  actualizarObra(id: string, body: CrearObra): Promise<RespuestaObra> {
+  actualizarObra(id: string = '', body: Obra): Promise<RespuestaObra> {
     return firstValueFrom(
       this.http.put<RespuestaObra>(
         `${environment?.urlBackend}/api/obra/${id}`,
@@ -46,7 +46,7 @@ export class BackendService {
     );
   }
 
-  actualizarEtiqueta(id: string, body: CrearEtiqueta): Promise<RespuestaObra> {
+  actualizarEtiqueta(id: string = '', body: Etiqueta): Promise<RespuestaObra> {
     return firstValueFrom(
       this.http.put<RespuestaObra>(
         `${environment?.urlBackend}/api/etiqueta/${id}`,

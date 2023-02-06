@@ -39,7 +39,7 @@ export class ObrasComponent implements OnInit {
     }
   }
 
-  private async obtenerObras(): Promise<void> {
+  async obtenerObras(): Promise<void> {
     try {
       this.loading = true;
       const servicioObras = await this.backendService.listarObras();

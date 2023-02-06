@@ -729,7 +729,7 @@ import { ObrasComponent } from './auth/obras/obras.component';
 import { EtiquetasComponent } from './auth/etiquetas/etiquetas.component';
 import { NgxLoadingModule } from "ngx-loading";
 import { TablaObrasComponent } from './shared/tabla-obras/tabla-obras.component';
-
+import { TablaEtiquetasComponent } from './shared/tabla-etiquetas/tabla-etiquetas.component';
 
 
 @NgModule({
@@ -1387,6 +1387,7 @@ import { TablaObrasComponent } from './shared/tabla-obras/tabla-obras.component'
  ObrasComponent,
  EtiquetasComponent,
  TablaObrasComponent,
+ TablaEtiquetasComponent,
 
 
   ],

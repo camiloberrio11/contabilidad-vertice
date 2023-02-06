@@ -57,8 +57,11 @@
           <div class="card-header">
             <h4 class="card-title">Listado actual de obras</h4>
           </div>
-          <div class="card-body ">
-            <app-tabla-obras [listaObras]="listadoObras"></app-tabla-obras>
+          <div class="card-body">
+            <app-tabla-obras
+              [listaObras]="listadoObras"
+              (recargarListaObras)="obtenerObras()"
+            ></app-tabla-obras>
           </div>
         </div>
       </div>

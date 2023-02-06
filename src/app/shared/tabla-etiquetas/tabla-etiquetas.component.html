@@ -17,34 +17,38 @@
         <tr>
           <th scope="col">#</th>
           <th sortable="name" scope="col">Nombre</th>
+          <th sortable="name" scope="col">Color</th>
           <th scope="col" sortable="area">Activo</th>
           <th scope="col" sortable="population">Fecha creación</th>
           <th scope="col" sortable="population">Editar</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let obra of listaObras; let i = index">
+        <tr *ngFor="let etiqueta of listaEtiquetas; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>
-            <ngb-highlight [result]="obra?.Nombre"></ngb-highlight>
+            <ngb-highlight [result]="etiqueta?.Nombre"></ngb-highlight>
+          </td>
+          <td>
+            <div class="containercolor" [style.background]="etiqueta?.Color" ></div>
           </td>
           <td>
             <mat-icon
               aria-hidden="false"
               aria-label="Example checkcircleoutline icon"
-              [ngClass]="obra?.Estado ? 'active' : 'desactive'"
-              >{{ obra?.Estado ? "check" : "close" }}</mat-icon
+              [ngClass]="etiqueta?.Estado ? 'active' : 'desactive'"
+              >{{ etiqueta?.Estado ? "check" : "close" }}</mat-icon
             >
           </td>
           <td>
             <ngb-highlight
-              [result]="obra?.FechaCreacion?.toString()"
+              [result]="etiqueta?.FechaCreacion?.toString()"
             ></ngb-highlight>
           </td>
           <td>
             <button
               class="btn-edit"
-              (click)="abrirModalEditar(contentbasic, obra)"
+              (click)="abrirModalEditar(contentbasic, etiqueta)"
             >
               <mat-icon
                 class="edit"
@@ -83,7 +87,7 @@
 <!-- Modal editar -->
 <ng-template #contentbasic let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Editar Obra</h4>
+    <h4 class="modal-title" id="modal-basic-title">Editar etiqueta</h4>
     <button
       type="button"
       class="close"
@@ -94,11 +98,23 @@
     </button>
   </div>
   <div class="modal-body default-calendar">
-    <form [formGroup]="formularioEditarObra">
+    <form [formGroup]="formularioEditarEtiqueta">
       <div class="form-group">
         <label for="dateOfBirth">Nombre</label>
         <div class="input-group">
           <input id="nombre" formControlName="nombre" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth">Color</label>
+        <div class="input-group">
+          <input
+            id="color"
+            formControlName="color"
+            class="form-control"
+            type="color"
+          />
         </div>
       </div>
 
@@ -116,7 +132,7 @@
       </div>
 
       <div class="form-group">
-        <label for="dateOfBirth">Obra activa</label>
+        <label for="dateOfBirth">Etiqueta activa</label>
         <div class="input-group">
           <mat-slide-toggle formControlName="estado"></mat-slide-toggle>
         </div>

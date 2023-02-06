@@ -10,9 +10,10 @@ export interface RespuestaEtiqueta {
 }
 
 export interface Etiqueta {
-  _id: string;
+  _id?: string;
   Estado: boolean;
+  Nombre: string;
   FechaCreacion: string;
   Color: string;
-  __v: number;
+  __v?: number;
 }

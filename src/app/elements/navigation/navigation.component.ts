@@ -17,6 +17,12 @@ export class NavigationComponent implements OnInit {
       { path: '/admin/etiqueta', name: 'Crear etiqueta' },
     ],
   };
+  procesamientoList: NavigationBar = {
+    father: 'Procesamiento',
+    childrens: [
+      { path: '/admin/obra', name: 'Cargar archivo' },
+    ],
+  };
 
   constructor(location: Location, router: Router) {
     router.events.subscribe((val) => {

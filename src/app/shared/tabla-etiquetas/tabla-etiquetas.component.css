@@ -1,0 +1,25 @@
+.active {
+  color: green;
+}
+
+.desactive {
+  color: red;
+}
+
+
+.btn-edit {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.edit {
+  color: black;
+  font-weight: bold;
+}
+
+.containercolor {
+  width: 70%;
+  height: 30px;
+  border: 1px solid black;
+}

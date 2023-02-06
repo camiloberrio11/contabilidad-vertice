@@ -1,46 +1,88 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Obra } from 'src/app/models/Obra';
+import { BackendService } from 'src/app/core/services/backend.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tabla-obras',
   templateUrl: './tabla-obras.component.html',
-  styleUrls: ['./tabla-obras.component.css']
+  styleUrls: ['./tabla-obras.component.css'],
 })
 export class TablaObrasComponent implements OnInit, OnChanges {
+  @Output() recargarListaObras = new EventEmitter<void>();
+  @Output() buscarObra = new EventEmitter<string>();
   @Input() listaObras: Obra[];
-
-
-
-  // countries$: Observable<Country[]>;
-  // total$: Observable<any>;
-
-  // @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
+  obraSelected: Obra;
+  formularioEditarObra: FormGroup;
+  loading = false;
 
   constructor(
-    // public service: CountryService
-    ) {
-    // this.countries$ = service.countries$;
-    // this.total$ = service.total$;
+    private modalService: NgbModal,
+    private readonly backendService: BackendService // public service: CountryService
+  ) {
   }
+  ngOnInit(): void {}
 
-  // onSort({column, direction}: SortEvent) {
+  abrirModalEditar(component: any, obra: Obra) {
+    this.obraSelected = obra;
+    this.formBuild();
+    this.modalService
+      .open(component, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          // Save click
+          this.handleActualizarObra();
 
-  //   // resetting other headers
-  //   this.headers.forEach(header => {
-  //     if (header.sortable !== column) {
-  //       header.direction = '';
-  //     }
-  //   });
-
-  //   this.service.sortColumn = column;
-  //   this.service.sortDirection = direction;
-  // }
-  ngOnInit(): void {
-    console.log(this.listaObras)
+        },
+        (reason) => {
+          console.log(reason);
+        }
+      );
   }
 
   ngOnChanges(): void {
-    console.log(this.listaObras)
+    console.log(this.listaObras);
   }
 
+  buscar(event: any): void {
+    const value = event?.target?.value;
+    this.buscarObra?.emit(value);
+  }
+
+  private async handleActualizarObra(): Promise<void> {
+    if (this.formularioEditarObra?.invalid) {
+      alert('Formulario no válido');
+      return;
+    }
+    this.loading = true;
+    const value = this.formularioEditarObra?.value;
+    try {
+      await this.backendService.actualizarObra(this.obraSelected?._id, {
+        Nombre: value?.nombre,
+        Estado: value?.estado,
+        FechaCreacion: value?.fecha,
+      });
+      this.loading = false;
+      this.obraSelected = null!;
+      this.recargarListaObras.emit();
+    } catch (error) {
+      this.loading = false;
+      console.log(error);
+    }
+  }
+
+  private formBuild(): void {
+    this.formularioEditarObra = new FormGroup({
+      nombre: new FormControl(this.obraSelected?.Nombre || '', [
+        Validators.required,
+      ]),
+      estado: new FormControl(this.obraSelected?.Estado, [
+        Validators.required,
+      ]),
+      fecha: new FormControl(this.obraSelected?.FechaCreacion || '', [
+        Validators.required,
+      ]),
+    });
+  }
 }

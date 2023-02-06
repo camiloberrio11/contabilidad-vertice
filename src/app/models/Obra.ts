@@ -9,9 +9,9 @@ export interface RespuestaObra {
 }
 
 export interface Obra {
-  _id: string;
+  _id?: string;
   Estado: boolean;
   Nombre: string;
   FechaCreacion: string;
-  __v: number;
+  __v?: number;
 }
