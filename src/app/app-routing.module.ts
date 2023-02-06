@@ -1,3 +1,4 @@
+import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/cargar-archivo.component';
 import { EtiquetasComponent } from './auth/etiquetas/etiquetas.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -136,6 +137,8 @@ const routes: Routes = [
     children: [
       { path: 'obra', component: ObrasComponent },
       { path: 'etiqueta', component: EtiquetasComponent },
+      { path: 'cargaarchivo', component: CargarArchivoComponent },
+
 
       // { path: 'index-1', component: Index1Component },
       // { path: 'dashboard', component: Index1Component },

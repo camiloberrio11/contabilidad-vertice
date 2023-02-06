@@ -31,10 +31,31 @@
               >{{ item.name }}</a
             >
           </li>
-
         </ul>
       </li>
 
+      <li [ngClass]="{ 'mm-active': validarRuta(procesamientoList) }">
+        <a
+          class="has-arrow ai-icon"
+          href="javascript:void()"
+          aria-expanded="false"
+        >
+          <i class="flaticon-381-television"></i>
+          <span class="nav-text">{{ procesamientoList.father }}</span>
+        </a>
+        <ul
+          aria-expanded="false"
+          [ngClass]="{ 'mm-show': validarRuta(procesamientoList) }"
+        >
+          <li *ngFor="let item of procesamientoList?.childrens">
+            <a
+              [routerLink]="[item.path]"
+              class="{{ currentHref == item.path ? 'mm-active' : '' }}"
+              >{{ item.name }}</a
+            >
+          </li>
+        </ul>
+      </li>
     </ul>
     <!-- <div class="copyright">
       <p>

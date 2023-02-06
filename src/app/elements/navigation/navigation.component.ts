@@ -10,6 +10,22 @@ import { NavigationBar } from './Navigation';
 })
 export class NavigationComponent implements OnInit {
   public currentHref: string = '';
+  apsArray = [
+    '/admin/app-profile',
+    '/admin/post-details',
+    '/admin/email-compose',
+    '/admin/email-inbox',
+    '/admin/email-read',
+    '/admin/app-calender',
+    '/admin/ecom-product-grid',
+    '/admin/ecom-product-list',
+    '/admin/ecom-product-detail',
+    '/admin/ecom-product-order',
+    '/admin/ecom-checkout',
+    '/admin/ecom-invoice',
+    '/admin/ecom-customers',
+
+];
   administracionList: NavigationBar = {
     father: 'Administacion',
     childrens: [
@@ -20,7 +36,7 @@ export class NavigationComponent implements OnInit {
   procesamientoList: NavigationBar = {
     father: 'Procesamiento',
     childrens: [
-      { path: '/admin/obra', name: 'Cargar archivo' },
+      { path: '/admin/cargaarchivo', name: 'Cargar archivo' },
     ],
   };
 
@@ -46,5 +62,5 @@ export class NavigationComponent implements OnInit {
     return !!listaRutas.childrens.find((it) => it?.path === this.currentHref);
   }
 
-  
+
 }
