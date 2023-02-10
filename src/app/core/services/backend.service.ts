@@ -4,6 +4,7 @@ import { CrearObra, Obra, RespuestaObra } from 'src/app/models/Obra';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CrearEtiqueta, Etiqueta, RespuestaEtiqueta } from 'src/app/models/Etiqueta';
+import { CrearArchivo, RespuestaArchivo } from 'src/app/models/Archivo';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +53,12 @@ export class BackendService {
         `${environment?.urlBackend}/api/etiqueta/${id}`,
         body
       )
+    );
+  }
+
+  crearArchivo(body: CrearArchivo): Promise<RespuestaArchivo> {
+    return firstValueFrom(
+      this.http.post<RespuestaArchivo>(`${environment?.urlBackend}/api/archivo`, body)
     );
   }
 }
