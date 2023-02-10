@@ -78,7 +78,7 @@ export class CargarArchivoComponent implements OnInit {
       this.loading = true;
       const srcArchivo = this.srcArchivo?.toString()?.split('base64,') || '';
       const values = this.formularioArchivo?.value;
-      this.archivoSubido = (
+      const respuesta = (
         await this.backendService.crearArchivo({
           nombre: values?.nombre,
           mes: values?.mes,
@@ -87,6 +87,7 @@ export class CargarArchivoComponent implements OnInit {
           srcArchivo: srcArchivo[1],
         })
       )?.data;
+      this.archivoSubido = respuesta?.splice(1);
       this.loading = false;
       this.reinicioInput();
       alert('Archivo creado');
