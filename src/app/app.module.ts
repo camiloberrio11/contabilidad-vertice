@@ -56,6 +56,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { TablaObrasComponent } from './shared/tabla-obras/tabla-obras.component';
 import { TablaEtiquetasComponent } from './shared/tabla-etiquetas/tabla-etiquetas.component';
 import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/cargar-archivo.component';
+import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/carg
     TablaObrasComponent,
     TablaEtiquetasComponent,
     CargarArchivoComponent,
+    HistorialArchivoComponent,
   ],
   imports: [
     BrowserModule,

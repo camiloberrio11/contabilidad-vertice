@@ -1,18 +1,14 @@
-import { Obra } from 'src/app/models/Obra';
-import { BackendService } from './../../../core/services/backend.service';
 import { Component, OnInit } from '@angular/core';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
+import { BackendService } from 'src/app/core/services/backend.service';
+import { Obra } from 'src/app/models/Obra';
 
 @Component({
-  selector: 'app-cargar-archivo',
-  templateUrl: './cargar-archivo.component.html',
-  styleUrls: ['./cargar-archivo.component.css'],
+  selector: 'app-historial-archivo',
+  templateUrl: './historial-archivo.component.html',
+  styleUrls: ['./historial-archivo.component.css'],
 })
-export class CargarArchivoComponent implements OnInit {
-  loading = false;
-  listadoObras: Obra[] = [];
-  listadoAnos = crearListaAnos();
-  listadoMeses = crearListaMeses();
+export class HistorialArchivoComponent implements OnInit {
   listaSimulada = [
     {
       codigo: 'AAA123',
@@ -45,25 +41,14 @@ export class CargarArchivoComponent implements OnInit {
       nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
     },
   ];
+  loading = false;
+  listadoObras: Obra[] = [];
+  listadoAnos = crearListaAnos();
+  listadoMeses = crearListaMeses();
   constructor(private backendService: BackendService) {}
 
   ngOnInit(): void {
     this.obtenerObras();
-  }
-
-  uploadFile(event: any) {
-    // const element = event.currentTarget as HTMLInputElement;
-    // let fileList: FileList | null = element.files;
-    // if (fileList) {
-    //   console.log("FileUpload -> files", fileList);
-    // }
-    // const element = event.currentTarget as HTMLInputElement;
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      console.log(reader.result);
-    };
   }
 
   private async obtenerObras(): Promise<void> {

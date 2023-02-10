@@ -28,7 +28,7 @@ export class ObrasComponent implements OnInit {
         return;
       }
       this.loading = true;
-      await this.backendService.crearObra({nombre: this.nombreObra});
+      await this.backendService.crearObra({ nombre: this.nombreObra });
       this.nombreObra = '';
       this.loading = false;
       alert('Obra creada');

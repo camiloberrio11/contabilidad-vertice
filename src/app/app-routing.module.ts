@@ -10,9 +10,8 @@ import { Error404Component } from './pages/error404/error404.component';
 // import { NestableComponent } from './plugins/nestable/nestable.component';
 // import { LightGalleryComponent } from './plugins/light-gallery/light-gallery.component';
 
-
-
 import { ObrasComponent } from './auth/obras/obras.component';
+import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,7 +22,7 @@ const routes: Routes = [
       { path: 'obra', component: ObrasComponent },
       { path: 'etiqueta', component: EtiquetasComponent },
       { path: 'cargaarchivo', component: CargarArchivoComponent },
-
+      { path: 'historial-archivos', component: HistorialArchivoComponent },
     ],
   },
   { path: 'login', component: LoginComponent },

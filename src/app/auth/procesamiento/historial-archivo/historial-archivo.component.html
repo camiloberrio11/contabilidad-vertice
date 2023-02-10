@@ -4,8 +4,11 @@
     <div class="row page-titles mx-0">
       <div class="col-sm-6 p-md-0">
         <div class="welcome-text">
-          <h4>Carga de archivo</h4>
-          <p class="mb-0">Acá podrás subir todos tus archivos</p>
+          <h4>Historial de archivos</h4>
+          <p class="mb-0">
+            Acá podrás filtrar y revisar todos los archivos que has
+            creado/subido
+          </p>
         </div>
       </div>
     </div>
@@ -14,7 +17,7 @@
       <div class="col-xl-12 col-lg-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">Archivo</h4>
+            <h4 class="card-title">Historial</h4>
           </div>
           <div class="card-body">
             <div class="basic-form">
@@ -75,28 +78,9 @@
                 </div>
 
                 <div class="form-group row">
-                  <div class="custom-file">
-                    <input
-                      type="file"
-                      class="custom-file-input"
-                      (change)="uploadFile($event)"
-                    />
-                    <label class="custom-file-label">Seleccione archivo</label>
-                  </div>
-                  <!-- <label class="col-sm-3 col-form-label">Nombre del archivo</label>
-                  <div class="col-sm-9">
-                    <input
-                      type="email"
-                      class="form-control"
-                      placeholder="Nombre del archivo"
-                    />
-                  </div> -->
-                </div>
-
-                <div class="form-group row">
                   <div class="col-sm-10 col text-center">
                     <button type="submit" class="btn btn-primary">
-                      Subir archivo
+                      Buscar
                     </button>
                   </div>
                 </div>
@@ -105,16 +89,17 @@
           </div>
         </div>
       </div>
+
       <!-- table -->
       <div class="col-lg-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">Tabla del archivo con información</h4>
+            <h4 class="card-title">Resultados de tu búsqueda</h4>
           </div>
           <div class="card-body">
             <!-- componente externo -->
             <!-- <app-table-basic></app-table-basic> -->
-
+            <p>Selecciona el archivo que deseas ver</p>
             <div class="table-responsive">
               <table class="table table-striped">
                 <thead>
@@ -123,30 +108,54 @@
                     <th scope="col">Codigo</th>
                     <th scope="col">Consolidado</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Etiquetar</th>
-                    <th scope="col">Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let ejemplo of listaSimulada; index as i">
+                  <tr
+                    *ngFor="
+                      let country of [
+                        {
+                          name: 'Russia',
+                          flag: 'f/f3/Flag_of_Russia.svg',
+                          area: 17075200,
+                          population: 146989754
+                        },
+                        {
+                          name: 'Canada',
+                          flag: 'c/cf/Flag_of_Canada.svg',
+                          area: 9976140,
+                          population: 36624199
+                        },
+                        {
+                          name: 'United States',
+                          flag: 'a/a4/Flag_of_the_United_States.svg',
+                          area: 9629091,
+                          population: 324459463
+                        },
+                        {
+                          name: 'China',
+                          flag: 'f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
+                          area: 9596960,
+                          population: 1409517397
+                        }
+                      ];
+                      index as i
+                    "
+                  >
                     <th scope="row">{{ i + 1 }}</th>
-                    <td>{{ ejemplo.codigo }}</td>
-                    <td>{{ ejemplo.nombre }}</td>
-                    <td>{{ ejemplo.consolidado }}</td>
                     <td>
-                      <mat-icon
-                        aria-hidden="false"
-                        aria-label="Example checkcircleoutline icon"
-                        >sell</mat-icon
-                      >
+                      <img
+                        [src]="
+                          'https://upload.wikimedia.org/wikipedia/commons/' +
+                          country.flag
+                        "
+                        class="mr-2"
+                        style="width: 20px"
+                      />
+                      {{ country.name }}
                     </td>
-                    <td>
-                      <mat-icon
-                        aria-hidden="false"
-                        aria-label="Example checkcircleoutline icon"
-                        >delete</mat-icon
-                      >
-                    </td>
+                    <td>{{ country.area | number }}</td>
+                    <td>{{ country.population | number }}</td>
                   </tr>
                 </tbody>
               </table>
