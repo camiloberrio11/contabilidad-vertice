@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { Obra } from 'src/app/models/Obra';
@@ -10,7 +10,7 @@ import { Obra } from 'src/app/models/Obra';
   styleUrls: ['./historial-archivo.component.css'],
 })
 export class HistorialArchivoComponent implements OnInit {
-  formularioObtener: FormGroup;
+  formularioObtener: UntypedFormGroup;
   listaSimulada = [
     {
       codigo: 'AAA123',
@@ -91,11 +91,11 @@ export class HistorialArchivoComponent implements OnInit {
   }
 
   private formBuild(): void {
-    this.formularioObtener = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
-      mes: new FormControl(this.listadoMeses[0]?.id, [Validators.required]),
-      ano: new FormControl(this.listadoAnos[0], [Validators.required]),
-      obra: new FormControl(this.listadoObras[0]?._id, [Validators.required]),
+    this.formularioObtener = new UntypedFormGroup({
+      nombre: new UntypedFormControl('', [Validators.required]),
+      mes: new UntypedFormControl(this.listadoMeses[0]?.id, [Validators.required]),
+      ano: new UntypedFormControl(this.listadoAnos[0], [Validators.required]),
+      obra: new UntypedFormControl(this.listadoObras[0]?._id, [Validators.required]),
     });
   }
 }

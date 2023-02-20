@@ -3,7 +3,7 @@ import { BackendService } from './../../../core/services/backend.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
 import { Archivo } from 'src/app/models/Archivo';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 
 @Component({
@@ -15,7 +15,7 @@ export class CargarArchivoComponent implements OnInit {
   loading = false;
   @ViewChild('inputFile')
   myInputVariable: ElementRef;
-  formularioArchivo: FormGroup;
+  formularioArchivo: UntypedFormGroup;
   listadoObras: Obra[] = [];
   listadoAnos = crearListaAnos();
   listadoMeses = crearListaMeses();
@@ -445,11 +445,11 @@ export class CargarArchivoComponent implements OnInit {
   }
 
   private formBuild(): void {
-    this.formularioArchivo = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
-      mes: new FormControl(this.listadoMeses[0]?.id, [Validators.required]),
-      ano: new FormControl(this.listadoAnos[0], [Validators.required]),
-      obra: new FormControl(this.listadoObras[0]?._id, [Validators.required]),
+    this.formularioArchivo = new UntypedFormGroup({
+      nombre: new UntypedFormControl('', [Validators.required]),
+      mes: new UntypedFormControl(this.listadoMeses[0]?.id, [Validators.required]),
+      ano: new UntypedFormControl(this.listadoAnos[0], [Validators.required]),
+      obra: new UntypedFormControl(this.listadoObras[0]?._id, [Validators.required]),
     });
   }
 }

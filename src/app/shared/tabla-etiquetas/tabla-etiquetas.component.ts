@@ -1,5 +1,5 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 import { BackendService } from 'src/app/core/services/backend.service';
@@ -14,7 +14,7 @@ export class TablaEtiquetasComponent implements OnInit {
   // @Output() buscarObra = new EventEmitter<string>();
   @Input() listaEtiquetas: Etiqueta[];
   etiquetaSeleccionada: Etiqueta;
-  formularioEditarEtiqueta: FormGroup;
+  formularioEditarEtiqueta: UntypedFormGroup;
   loading = false;
 
   constructor(
@@ -43,17 +43,17 @@ export class TablaEtiquetasComponent implements OnInit {
   }
 
   private formBuild(): void {
-    this.formularioEditarEtiqueta = new FormGroup({
-      nombre: new FormControl(this.etiquetaSeleccionada?.Nombre || '', [
+    this.formularioEditarEtiqueta = new UntypedFormGroup({
+      nombre: new UntypedFormControl(this.etiquetaSeleccionada?.Nombre || '', [
         Validators.required,
       ]),
-      color: new FormControl(this.etiquetaSeleccionada?.Color, [
+      color: new UntypedFormControl(this.etiquetaSeleccionada?.Color, [
         Validators.required,
       ]),
-      estado: new FormControl(this.etiquetaSeleccionada?.Estado, [
+      estado: new UntypedFormControl(this.etiquetaSeleccionada?.Estado, [
         Validators.required,
       ]),
-      fecha: new FormControl(this.etiquetaSeleccionada?.FechaCreacion || '', [
+      fecha: new UntypedFormControl(this.etiquetaSeleccionada?.FechaCreacion || '', [
         Validators.required,
       ]),
     });

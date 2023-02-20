@@ -2,7 +2,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Obra } from 'src/app/models/Obra';
 import { BackendService } from 'src/app/core/services/backend.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tabla-obras',
@@ -14,7 +14,7 @@ export class TablaObrasComponent implements OnInit, OnChanges {
   @Output() buscarObra = new EventEmitter<string>();
   @Input() listaObras: Obra[];
   obraSelected: Obra;
-  formularioEditarObra: FormGroup;
+  formularioEditarObra: UntypedFormGroup;
   loading = false;
 
   constructor(
@@ -73,14 +73,14 @@ export class TablaObrasComponent implements OnInit, OnChanges {
   }
 
   private formBuild(): void {
-    this.formularioEditarObra = new FormGroup({
-      nombre: new FormControl(this.obraSelected?.Nombre || '', [
+    this.formularioEditarObra = new UntypedFormGroup({
+      nombre: new UntypedFormControl(this.obraSelected?.Nombre || '', [
         Validators.required,
       ]),
-      estado: new FormControl(this.obraSelected?.Estado, [
+      estado: new UntypedFormControl(this.obraSelected?.Estado, [
         Validators.required,
       ]),
-      fecha: new FormControl(this.obraSelected?.FechaCreacion || '', [
+      fecha: new UntypedFormControl(this.obraSelected?.FechaCreacion || '', [
         Validators.required,
       ]),
     });
