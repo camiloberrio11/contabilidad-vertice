@@ -3,7 +3,11 @@ import { BackendService } from './../../../core/services/backend.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
 import { Archivo } from 'src/app/models/Archivo';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 
 @Component({
@@ -24,309 +28,56 @@ export class CargarArchivoComponent implements OnInit {
   files1: TreeNode[] = [
     {
       data: {
-        name: 'Applications',
-        size: '200mb',
-        type: 'Folder',
+        nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
+        codigo: '198025',
+        consolidado: '853,470,881.11 ',
       },
       children: [
         {
           data: {
-            name: 'Angular',
-            size: '25mb',
-            type: 'Folder',
+            nombre: 'MATERIAS PRIMAS CONSTRUCCION',
+            codigo: '19802501',
+            consolidado: '2,350,592,569.23 ',
           },
           children: [
             {
               data: {
-                name: 'angular.app',
-                size: '10mb',
-                type: 'Application',
+                nombre: 'MATERIALES DE CONSTRUCCION',
+                codigo: '1980250101',
+                consolidado: '10,286,589,193.00 ',
               },
             },
             {
               data: {
-                name: 'cli.app',
-                size: '10mb',
-                type: 'Application',
+                nombre: 'MARIALES EN TRANSITO',
+                codigo: '1980250102',
+                consolidado: '0.00',
               },
             },
             {
               data: {
-                name: 'mobile.app',
-                size: '5mb',
-                type: 'Application',
+                nombre: 'MATERIA PRIMA NO DEDUCIBLE',
+                codigo: '1980250103',
+                consolidado: '0.00',
               },
             },
           ],
         },
         {
           data: {
-            name: 'editor.app',
-            size: '25mb',
-            type: 'Application',
-          },
-        },
-        {
-          data: {
-            name: 'settings.app',
-            size: '50mb',
-            type: 'Application',
-          },
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Cloud',
-        size: '20mb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'backup-1.zip',
-            size: '10mb',
-            type: 'Zip',
-          },
-        },
-        {
-          data: {
-            name: 'backup-2.zip',
-            size: '10mb',
-            type: 'Zip',
-          },
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Desktop',
-        size: '150kb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'note-meeting.txt',
-            size: '50kb',
-            type: 'Text',
-          },
-        },
-        {
-          data: {
-            name: 'note-todo.txt',
-            size: '100kb',
-            type: 'Text',
-          },
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Documents',
-        size: '75kb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'Work',
-            size: '55kb',
-            type: 'Folder',
+            nombre: 'SOBRANTES Y/O FALTANTES DE INVENTARIO',
+            codigo: '19802502',
+            consolidado: '1.00 ',
           },
           children: [
             {
               data: {
-                name: 'Expenses.doc',
-                size: '30kb',
-                type: 'Document',
-              },
-            },
-            {
-              data: {
-                name: 'Resume.doc',
-                size: '25kb',
-                type: 'Resume',
+                nombre: 'MATERIALES',
+                codigo: '1980250201',
+                consolidado: '0.00',
               },
             },
           ],
-        },
-        {
-          data: {
-            name: 'Home',
-            size: '20kb',
-            type: 'Folder',
-          },
-          children: [
-            {
-              data: {
-                name: 'Invoices',
-                size: '20kb',
-                type: 'Text',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Downloads',
-        size: '25mb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'Spanish',
-            size: '10mb',
-            type: 'Folder',
-          },
-          children: [
-            {
-              data: {
-                name: 'tutorial-a1.txt',
-                size: '5mb',
-                type: 'Text',
-              },
-            },
-            {
-              data: {
-                name: 'tutorial-a2.txt',
-                size: '5mb',
-                type: 'Text',
-              },
-            },
-          ],
-        },
-        {
-          data: {
-            name: 'Travel',
-            size: '15mb',
-            type: 'Text',
-          },
-          children: [
-            {
-              data: {
-                name: 'Hotel.pdf',
-                size: '10mb',
-                type: 'PDF',
-              },
-            },
-            {
-              data: {
-                name: 'Flight.pdf',
-                size: '5mb',
-                type: 'PDF',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Main',
-        size: '50mb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'bin',
-            size: '50kb',
-            type: 'Link',
-          },
-        },
-        {
-          data: {
-            name: 'etc',
-            size: '100kb',
-            type: 'Link',
-          },
-        },
-        {
-          data: {
-            name: 'var',
-            size: '100kb',
-            type: 'Link',
-          },
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Other',
-        size: '5mb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'todo.txt',
-            size: '3mb',
-            type: 'Text',
-          },
-        },
-        {
-          data: {
-            name: 'logo.png',
-            size: '2mb',
-            type: 'Picture',
-          },
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Pictures',
-        size: '150kb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'barcelona.jpg',
-            size: '90kb',
-            type: 'Picture',
-          },
-        },
-        {
-          data: {
-            name: 'primeng.png',
-            size: '30kb',
-            type: 'Picture',
-          },
-        },
-        {
-          data: {
-            name: 'prime.jpg',
-            size: '30kb',
-            type: 'Picture',
-          },
-        },
-      ],
-    },
-    {
-      data: {
-        name: 'Videos',
-        size: '1500mb',
-        type: 'Folder',
-      },
-      children: [
-        {
-          data: {
-            name: 'primefaces.mkv',
-            size: '1000mb',
-            type: 'Video',
-          },
-        },
-        {
-          data: {
-            name: 'intro.avi',
-            size: '500mb',
-            type: 'Video',
-          },
         },
       ],
     },
@@ -370,12 +121,6 @@ export class CargarArchivoComponent implements OnInit {
   }
 
   uploadFile(event: any) {
-    // const element = event.currentTarget as HTMLInputElement;
-    // let fileList: FileList | null = element.files;
-    // if (fileList) {
-    //   console.log("FileUpload -> files", fileList);
-    // }
-    // const element = event.currentTarget as HTMLInputElement;
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -447,9 +192,13 @@ export class CargarArchivoComponent implements OnInit {
   private formBuild(): void {
     this.formularioArchivo = new UntypedFormGroup({
       nombre: new UntypedFormControl('', [Validators.required]),
-      mes: new UntypedFormControl(this.listadoMeses[0]?.id, [Validators.required]),
+      mes: new UntypedFormControl(this.listadoMeses[0]?.id, [
+        Validators.required,
+      ]),
       ano: new UntypedFormControl(this.listadoAnos[0], [Validators.required]),
-      obra: new UntypedFormControl(this.listadoObras[0]?._id, [Validators.required]),
+      obra: new UntypedFormControl(this.listadoObras[0]?._id, [
+        Validators.required,
+      ]),
     });
   }
 }
