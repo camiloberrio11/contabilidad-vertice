@@ -3,8 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { CrearObra, Obra, RespuestaObra } from 'src/app/models/Obra';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CrearEtiqueta, Etiqueta, RespuestaEtiqueta } from 'src/app/models/Etiqueta';
-import { CrearArchivo, RespuestaArchivo } from 'src/app/models/Archivo';
+import {
+  CrearEtiqueta,
+  Etiqueta,
+  RespuestaEtiqueta,
+} from 'src/app/models/Etiqueta';
+import {
+  CrearArchivo,
+  QueryArchivo,
+  RespuestaArchivo,
+} from 'src/app/models/Archivo';
 
 @Injectable({
   providedIn: 'root',
@@ -58,7 +66,19 @@ export class BackendService {
 
   crearArchivo(body: CrearArchivo): Promise<RespuestaArchivo> {
     return firstValueFrom(
-      this.http.post<RespuestaArchivo>(`${environment?.urlBackend}/api/archivo`, body)
+      this.http.post<RespuestaArchivo>(
+        `${environment?.urlBackend}/api/archivo`,
+        body
+      )
+    );
+  }
+
+  obtenerArchivo(query: QueryArchivo): Promise<RespuestaArchivo> {
+    return firstValueFrom(
+      this.http.post<RespuestaArchivo>(
+        `${environment?.urlBackend}/api/obtenerarchivo`,
+        query
+      )
     );
   }
 }

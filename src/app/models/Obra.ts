@@ -10,8 +10,8 @@ export interface RespuestaObra {
 
 export interface Obra {
   _id?: string;
-  Estado: boolean;
+  Estado?: boolean;
   Nombre: string;
-  FechaCreacion: string;
+  FechaCreacion?: string;
   __v?: number;
 }

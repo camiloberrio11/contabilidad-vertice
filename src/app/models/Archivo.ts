@@ -23,3 +23,11 @@ export interface Archivo {
   FechaActualizacion: string;
   __v?: number;
 }
+
+
+export interface QueryArchivo {
+  ano: string;
+  mes: string;
+  obra: string;
+  nombre: string;
+}

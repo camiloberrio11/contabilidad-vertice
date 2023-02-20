@@ -21,7 +21,7 @@
           </div>
           <div class="card-body">
             <div class="basic-form">
-              <form>
+              <form [formGroup]="formularioObtener">
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label"
                     >Nombre del archivo</label
@@ -30,6 +30,7 @@
                     <input
                       type="text"
                       class="form-control"
+                      formControlName="nombre"
                       placeholder="Nombre del archivo"
                     />
                   </div>
@@ -39,10 +40,15 @@
                   <label class="col-sm-3 col-form-label">Seleccione obra</label>
                   <div class="col-sm-9">
                     <select
+                    name="plan" id="plan"
+                      formControlName="obra"
                       class="form-control form-control-lg default-select"
                       placeholder="Selecciona obra"
                     >
-                      <option *ngFor="let obra of listadoObras">
+                      <option
+                        *ngFor="let obra of listadoObras"
+                        [value]="obra?._id"
+                      >
                         {{ obra?.Nombre }}
                       </option>
                     </select>
@@ -53,10 +59,14 @@
                   <label class="col-sm-3 col-form-label">Seleccione mes</label>
                   <div class="col-sm-9">
                     <select
+                      formControlName="mes"
                       class="form-control form-control-lg default-select"
                       placeholder="Selecciona obra"
                     >
-                      <option *ngFor="let mes of listadoMeses">
+                      <option
+                        *ngFor="let mes of listadoMeses"
+                        [value]="mes?.id"
+                      >
                         {{ mes?.mes }}
                       </option>
                     </select>
@@ -67,10 +77,11 @@
                   <label class="col-sm-3 col-form-label">Seleccione año</label>
                   <div class="col-sm-9">
                     <select
+                      formControlName="ano"
                       class="form-control form-control-lg default-select"
                       placeholder="Selecciona obra"
                     >
-                      <option *ngFor="let ano of listadoAnos">
+                      <option *ngFor="let ano of listadoAnos" [value]="ano">
                         {{ ano }}
                       </option>
                     </select>
@@ -79,7 +90,11 @@
 
                 <div class="form-group row">
                   <div class="col-sm-10 col text-center">
-                    <button type="submit" class="btn btn-primary">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      (click)="buscar()"
+                    >
                       Buscar
                     </button>
                   </div>

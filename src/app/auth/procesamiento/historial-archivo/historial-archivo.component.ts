@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { Obra } from 'src/app/models/Obra';
@@ -9,6 +10,7 @@ import { Obra } from 'src/app/models/Obra';
   styleUrls: ['./historial-archivo.component.css'],
 })
 export class HistorialArchivoComponent implements OnInit {
+  formularioObtener: FormGroup;
   listaSimulada = [
     {
       codigo: 'AAA123',
@@ -51,15 +53,49 @@ export class HistorialArchivoComponent implements OnInit {
     this.obtenerObras();
   }
 
+  async buscar(): Promise<void> {
+    try {
+      this.loading = true;
+      const values = this.formularioObtener?.value;
+      await this.backendService?.obtenerArchivo({
+        ano: values?.ano || '',
+        mes: values?.mes || '',
+        obra: values?.obra || '',
+        nombre: values?.nombre || '',
+      });
+      this.loading = false;
+    } catch (error) {
+      this.loading = false;
+      console.log(error);
+    }
+  }
+
   private async obtenerObras(): Promise<void> {
     try {
       this.loading = true;
       const servicioObras = await this.backendService.listarObras();
       this.listadoObras = servicioObras.data;
       this.loading = false;
+      this.formatearOpciones();
     } catch (error) {
       console.log(error);
       this.loading = false;
     }
+  }
+
+  private formatearOpciones(): void {
+    this.listadoAnos?.unshift('');
+    this.listadoMeses?.unshift({ id: 13131313, mes: '' });
+    this.listadoObras?.unshift({ _id: '', Nombre: '' });
+    this.formBuild();
+  }
+
+  private formBuild(): void {
+    this.formularioObtener = new FormGroup({
+      nombre: new FormControl('', [Validators.required]),
+      mes: new FormControl(this.listadoMeses[0]?.id, [Validators.required]),
+      ano: new FormControl(this.listadoAnos[0], [Validators.required]),
+      obra: new FormControl(this.listadoObras[0]?._id, [Validators.required]),
+    });
   }
 }

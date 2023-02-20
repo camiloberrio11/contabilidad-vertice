@@ -101,6 +101,26 @@ export class CargarArchivoComponent implements OnInit {
     this.myInputVariable.nativeElement.value = '';
   }
 
+  abrirModal(component: any, action: 'etiqueta' | 'eliminar') {
+    if (action === 'etiqueta') {
+      
+    }
+    // this.obraSelected = obra;
+    // this.formBuild();
+    // this.modalService
+    //   .open(component, { ariaLabelledBy: 'modal-basic-title' })
+    //   .result.then(
+    //     (result) => {
+    //       // Save click
+    //       this.handleActualizarObra();
+
+    //     },
+    //     (reason) => {
+    //       console.log(reason);
+    //     }
+    //   );
+  }
+
   private async obtenerObras(): Promise<void> {
     try {
       this.loading = true;
