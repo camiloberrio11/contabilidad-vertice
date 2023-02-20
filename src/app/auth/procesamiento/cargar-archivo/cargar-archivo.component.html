@@ -124,7 +124,26 @@
             <!-- <app-table-basic></app-table-basic> -->
 
             <div class="table-responsive">
-              <table class="table table-striped">
+              <p-treeTable [value]="files1">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Type</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <tr [ttRow]="rowNode">
+                        <td>
+                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                            {{rowData.name}}
+                        </td>
+                        <td>{{rowData.size}}</td>
+                        <td>{{rowData.type}}</td>
+                    </tr>
+                </ng-template>
+            </p-treeTable>
+              <!-- <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -157,7 +176,7 @@
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 
 import { SharedService } from './shared.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NestableModule } from 'ngx-nestable';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -57,7 +57,7 @@ import { TablaObrasComponent } from './shared/tabla-obras/tabla-obras.component'
 import { TablaEtiquetasComponent } from './shared/tabla-etiquetas/tabla-etiquetas.component';
 import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/cargar-archivo.component';
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
-
+import {TreeTableModule} from 'primeng/treetable';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +90,8 @@ import { HistorialArchivoComponent } from './auth/procesamiento/historial-archiv
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    ChartsModule,
+    TreeTableModule,
+    NgChartsModule,
     NgApexchartsModule,
     NestableModule,
     NgxSpinnerModule,
@@ -100,8 +101,6 @@ import { HistorialArchivoComponent } from './auth/procesamiento/historial-archiv
     PerfectScrollbarModule,
     NgxDropzoneModule,
     CarouselModule,
-
-
     MatSlideToggleModule,
     MatIconModule,
 

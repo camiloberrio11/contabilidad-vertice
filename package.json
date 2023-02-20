@@ -31,12 +31,16 @@
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
     "ng-apexcharts": "^1.5.12",
-
+    "ng2-charts": "^4.1.1",
+    "ngx-dropzone": "^3.1.0",
+    "ngx-lightbox": "^3.0.0",
     "ngx-loading": "^2.0.1",
     "ngx-nestable": "^0.9.4",
     "ngx-owl-carousel-o": "^6.0.0",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-spinner": "^12.0.0",
+    "primeicons": "^6.0.1",
+    "primeng": "^15.2.0",
     "rxjs": "~7.5.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
