@@ -10,24 +10,12 @@ import { AppComponent } from './app.component';
 
 import { SharedService } from './shared.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgChartsModule } from 'ng2-charts';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { NestableModule } from 'ngx-nestable';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LightboxModule } from 'ngx-lightbox';
 
-import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin from '@fullcalendar/interaction';
 
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  timeGridPlugin,
-  listPlugin,
-  interactionPlugin,
-]);
+
 
 import { MetismenuAngularModule } from '@metismenu/angular';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -91,12 +79,10 @@ import {TreeTableModule} from 'primeng/treetable';
     HttpClientModule,
     NgbModule,
     TreeTableModule,
-    NgChartsModule,
-    NgApexchartsModule,
+
     NestableModule,
     NgxSpinnerModule,
     LightboxModule,
-    FullCalendarModule,
     MetismenuAngularModule,
     PerfectScrollbarModule,
     NgxDropzoneModule,
