@@ -35,7 +35,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 
 /* #########################  SITE PAGES COMPONENT ###################*/
