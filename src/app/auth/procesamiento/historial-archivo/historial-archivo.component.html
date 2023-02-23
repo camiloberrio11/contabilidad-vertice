@@ -120,57 +120,38 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Codigo</th>
-                    <th scope="col">Consolidado</th>
                     <th scope="col">Nombre</th>
+                    <th scope="col">Mes</th>
+                    <th scope="col">Año</th>
+                    <th scope="col">Obra</th>
+                    <th scope="col">Fecha creación</th>
+                    <th scope="col">Ver</th>
+
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     *ngFor="
-                      let country of [
-                        {
-                          name: 'Russia',
-                          flag: 'f/f3/Flag_of_Russia.svg',
-                          area: 17075200,
-                          population: 146989754
-                        },
-                        {
-                          name: 'Canada',
-                          flag: 'c/cf/Flag_of_Canada.svg',
-                          area: 9976140,
-                          population: 36624199
-                        },
-                        {
-                          name: 'United States',
-                          flag: 'a/a4/Flag_of_the_United_States.svg',
-                          area: 9629091,
-                          population: 324459463
-                        },
-                        {
-                          name: 'China',
-                          flag: 'f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
-                          area: 9596960,
-                          population: 1409517397
-                        }
-                      ];
+                      let archivo of listadoArchivos;
                       index as i
                     "
                   >
                     <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ archivo.Nombre }}</td>
+                    <td>{{ archivo.Mes }}</td>
+                    <td>{{ archivo.Ano }}</td>
+                    <td>{{ archivo?.Obra?.Nombre }}</td>
+                    <td>{{ archivo.FechaCreacion }}</td>
                     <td>
-                      <img
-                        [src]="
-                          'https://upload.wikimedia.org/wikipedia/commons/' +
-                          country.flag
-                        "
-                        class="mr-2"
-                        style="width: 20px"
-                      />
-                      {{ country.name }}
+                      <button class="eye-item">
+                        <mat-icon
+                          aria-hidden="false"
+                          aria-label="checkcircleoutline icon"
+                          >visibility</mat-icon
+                        >
+                      </button>
                     </td>
-                    <td>{{ country.area | number }}</td>
-                    <td>{{ country.population | number }}</td>
+
                   </tr>
                 </tbody>
               </table>
