@@ -1,9 +1,22 @@
 import { Obra } from 'src/app/models/Obra';
 import { BackendService } from './../../../core/services/backend.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
 import { Archivo } from 'src/app/models/Archivo';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { TreeNode } from 'primeng/api';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Etiqueta } from 'src/app/models/Etiqueta';
 
 @Component({
   selector: 'app-cargar-archivo',
@@ -14,57 +27,34 @@ export class CargarArchivoComponent implements OnInit {
   loading = false;
   @ViewChild('inputFile')
   myInputVariable: ElementRef;
-  formularioArchivo: FormGroup;
+  formularioArchivo: UntypedFormGroup;
   listadoObras: Obra[] = [];
+  listadoEtiquetas: Etiqueta[] = [];
   listadoAnos = crearListaAnos();
   listadoMeses = crearListaMeses();
   archivoSubido: { [key: string]: string }[];
   srcArchivo: string | ArrayBuffer | null = '';
-  listaSimulada = [
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-  ];
-  constructor(private backendService: BackendService) {}
+  files1: any[] = [];
+
+  constructor(
+    private backendService: BackendService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
+    this.formBuild();
     this.obtenerObras();
   }
 
+  eliminarItem(item: any): void {
+    console.log(item);
+    const nuevoListado = [];
+    for (const iterator of this.files1) {
+    }
+    // this.files1 = this.files1.filter(it => it.)
+  }
+
   uploadFile(event: any) {
-    // const element = event.currentTarget as HTMLInputElement;
-    // let fileList: FileList | null = element.files;
-    // if (fileList) {
-    //   console.log("FileUpload -> files", fileList);
-    // }
-    // const element = event.currentTarget as HTMLInputElement;
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -87,7 +77,9 @@ export class CargarArchivoComponent implements OnInit {
           srcArchivo: srcArchivo[1],
         })
       )?.data;
-      this.archivoSubido = respuesta?.splice(1);
+      console.log(respuesta);
+      this.archivoSubido = respuesta[0]?.Informacion;
+      this.files1 = respuesta;
       this.loading = false;
       this.reinicioInput();
       alert('Archivo creado');
@@ -101,24 +93,31 @@ export class CargarArchivoComponent implements OnInit {
     this.myInputVariable.nativeElement.value = '';
   }
 
-  abrirModal(component: any, action: 'etiqueta' | 'eliminar') {
-    if (action === 'etiqueta') {
-      
+  async openModalTags(
+    component: TemplateRef<any>,
+    item: {
+      nombre: string;
+      codigo: string;
+      consolidado: string;
     }
-    // this.obraSelected = obra;
-    // this.formBuild();
-    // this.modalService
-    //   .open(component, { ariaLabelledBy: 'modal-basic-title' })
-    //   .result.then(
-    //     (result) => {
-    //       // Save click
-    //       this.handleActualizarObra();
-
-    //     },
-    //     (reason) => {
-    //       console.log(reason);
-    //     }
-    //   );
+  ): Promise<void> {
+    try {
+      this.loading = true;
+      this.listadoEtiquetas = (
+        await this.backendService.listarEtiquetas()
+      )?.data;
+      this.loading = false;
+      const result = await this.modalService.open(component, {
+        ariaLabelledBy: 'modal-basic-title',
+      }).result;
+      this.loading = false;
+      if (result) {
+        this.actualizarArchivo();
+      }
+    } catch (error) {
+      this.loading = false;
+      console.log('Error en modal', error);
+    }
   }
 
   private async obtenerObras(): Promise<void> {
@@ -135,11 +134,23 @@ export class CargarArchivoComponent implements OnInit {
   }
 
   private formBuild(): void {
-    this.formularioArchivo = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
-      mes: new FormControl(this.listadoMeses[0]?.id, [Validators.required]),
-      ano: new FormControl(this.listadoAnos[0], [Validators.required]),
-      obra: new FormControl(this.listadoObras[0]?._id, [Validators.required]),
+    this.formularioArchivo = new UntypedFormGroup({
+      nombre: new UntypedFormControl('', [Validators.required]),
+      mes: new UntypedFormControl(this.listadoMeses[0]?.id, [
+        Validators.required,
+      ]),
+      ano: new UntypedFormControl(this.listadoAnos[0], [Validators.required]),
+      obra: new UntypedFormControl(this.listadoObras[0]?._id, [
+        Validators.required,
+      ]),
     });
+  }
+
+  private actualizarArchivo(): void {
+    this.loading = true;
+    setTimeout(() => {
+      this.files1 = this.files1;
+      this.loading = false;
+    }, 2000);
   }
 }

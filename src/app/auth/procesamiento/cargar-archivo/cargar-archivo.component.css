@@ -1,0 +1,11 @@
+td button {
+  background-color: transparent;
+  border: none;
+}
+td button mat-icon {
+  color: black;
+}
+
+td {
+  font-size: 10px;
+}

@@ -1,5 +1,5 @@
 import { BackendService } from 'src/app/core/services/backend.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 
@@ -9,7 +9,7 @@ import { Etiqueta } from 'src/app/models/Etiqueta';
   styleUrls: ['./etiquetas.component.css'],
 })
 export class EtiquetasComponent implements OnInit {
-  formularioCrearEtiqueta: FormGroup;
+  formularioCrearEtiqueta: UntypedFormGroup;
   loading = false;
   listaEtiquetas: Etiqueta[] = [];
 
@@ -58,9 +58,9 @@ export class EtiquetasComponent implements OnInit {
   }
 
   private formBuild(): void {
-    this.formularioCrearEtiqueta = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
-      color: new FormControl('#221b34', [Validators.required]),
+    this.formularioCrearEtiqueta = new UntypedFormGroup({
+      nombre: new UntypedFormControl('', [Validators.required]),
+      color: new UntypedFormControl('#221b34', [Validators.required]),
     });
   }
 }

@@ -1,3 +1,5 @@
+import { Obra } from './Obra';
+
 export interface CrearArchivo {
   nombre: string;
   mes: string;
@@ -9,7 +11,7 @@ export interface CrearArchivo {
 export interface RespuestaArchivo {
   ok: boolean;
   message: string;
-  data: { [key: string]: string }[];
+  data: Archivo[];
 }
 
 export interface Archivo {
@@ -17,8 +19,8 @@ export interface Archivo {
   Nombre: string;
   Mes: string;
   Ano: string;
-  Obra: string;
-  Informacion: { [key: string]: string }[];
+  Obra: Obra;
+  Informacion: any[];
   FechaCreacion: string;
   FechaActualizacion: string;
   __v?: number;

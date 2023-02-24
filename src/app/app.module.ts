@@ -10,24 +10,12 @@ import { AppComponent } from './app.component';
 
 import { SharedService } from './shared.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ChartsModule } from 'ng2-charts';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { NestableModule } from 'ngx-nestable';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LightboxModule } from 'ngx-lightbox';
 
-import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin from '@fullcalendar/interaction';
 
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  timeGridPlugin,
-  listPlugin,
-  interactionPlugin,
-]);
+
 
 import { MetismenuAngularModule } from '@metismenu/angular';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -35,7 +23,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 
 /* #########################  SITE PAGES COMPONENT ###################*/
@@ -57,7 +45,7 @@ import { TablaObrasComponent } from './shared/tabla-obras/tabla-obras.component'
 import { TablaEtiquetasComponent } from './shared/tabla-etiquetas/tabla-etiquetas.component';
 import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/cargar-archivo.component';
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
-
+import {TreeTableModule} from 'primeng/treetable';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,18 +78,15 @@ import { HistorialArchivoComponent } from './auth/procesamiento/historial-archiv
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    ChartsModule,
-    NgApexchartsModule,
+    TreeTableModule,
+
     NestableModule,
     NgxSpinnerModule,
     LightboxModule,
-    FullCalendarModule,
     MetismenuAngularModule,
     PerfectScrollbarModule,
     NgxDropzoneModule,
     CarouselModule,
-
-
     MatSlideToggleModule,
     MatIconModule,
 

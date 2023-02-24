@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
 import { BackendService } from 'src/app/core/services/backend.service';
+import { Archivo } from 'src/app/models/Archivo';
 import { Obra } from 'src/app/models/Obra';
+const TODOS_MESES = 13131313;
 
 @Component({
   selector: 'app-historial-archivo',
@@ -10,7 +16,7 @@ import { Obra } from 'src/app/models/Obra';
   styleUrls: ['./historial-archivo.component.css'],
 })
 export class HistorialArchivoComponent implements OnInit {
-  formularioObtener: FormGroup;
+  formularioObtener: UntypedFormGroup;
   listaSimulada = [
     {
       codigo: 'AAA123',
@@ -47,6 +53,7 @@ export class HistorialArchivoComponent implements OnInit {
   listadoObras: Obra[] = [];
   listadoAnos = crearListaAnos();
   listadoMeses = crearListaMeses();
+  listadoArchivos: Archivo[] = [];
   constructor(private backendService: BackendService) {}
 
   ngOnInit(): void {
@@ -57,12 +64,14 @@ export class HistorialArchivoComponent implements OnInit {
     try {
       this.loading = true;
       const values = this.formularioObtener?.value;
-      await this.backendService?.obtenerArchivo({
-        ano: values?.ano || '',
-        mes: values?.mes || '',
-        obra: values?.obra || '',
-        nombre: values?.nombre || '',
-      });
+      this.listadoArchivos = (
+        await this.backendService?.obtenerArchivo({
+          ano: values?.ano === 'TODOS' ? '' : values?.ano || '',
+          mes: values?.mes || '',
+          obra: values?.obra || '',
+          nombre: values?.nombre || '',
+        })
+      )?.data;
       this.loading = false;
     } catch (error) {
       this.loading = false;
@@ -74,28 +83,33 @@ export class HistorialArchivoComponent implements OnInit {
     try {
       this.loading = true;
       const servicioObras = await this.backendService.listarObras();
-      this.listadoObras = servicioObras.data;
+      this.listadoObras = servicioObras?.data || [];
       this.loading = false;
       this.formatearOpciones();
     } catch (error) {
+      this.listadoObras = [];
       console.log(error);
       this.loading = false;
     }
   }
 
   private formatearOpciones(): void {
-    this.listadoAnos?.unshift('');
-    this.listadoMeses?.unshift({ id: 13131313, mes: '' });
-    this.listadoObras?.unshift({ _id: '', Nombre: '' });
+    this.listadoAnos?.unshift('TODOS');
+    this.listadoMeses?.unshift({ id: TODOS_MESES, mes: 'TODOS' });
+    this.listadoObras?.unshift({ _id: '', Nombre: 'TODAS' });
     this.formBuild();
   }
 
   private formBuild(): void {
-    this.formularioObtener = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
-      mes: new FormControl(this.listadoMeses[0]?.id, [Validators.required]),
-      ano: new FormControl(this.listadoAnos[0], [Validators.required]),
-      obra: new FormControl(this.listadoObras[0]?._id, [Validators.required]),
+    this.formularioObtener = new UntypedFormGroup({
+      nombre: new UntypedFormControl('', [Validators.required]),
+      mes: new UntypedFormControl(this.listadoMeses[0]?.id, [
+        Validators.required,
+      ]),
+      ano: new UntypedFormControl(this.listadoAnos[0], [Validators.required]),
+      obra: new UntypedFormControl(this.listadoObras[0]?._id, [
+        Validators.required,
+      ]),
     });
   }
 }
