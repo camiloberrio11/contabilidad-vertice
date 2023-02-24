@@ -144,10 +144,10 @@
                       <p-treeTableToggler
                         [rowNode]="rowNode"
                       ></p-treeTableToggler>
-                      {{ rowData.nombre }}
+                      {{ rowData?.nombre }}
                     </td>
-                    <td>{{ rowData.codigo }}</td>
-                    <td>{{ rowData.consolidado }}</td>
+                    <td>{{ rowData?.codigo }}</td>
+                    <td>{{ rowData?.consolidado }}</td>
                     <td>
                       <button (click)="openModalTags(contentbasic, rowData)">
                         <mat-icon

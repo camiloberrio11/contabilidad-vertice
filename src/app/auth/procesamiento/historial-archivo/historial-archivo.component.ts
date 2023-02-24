@@ -8,6 +8,7 @@ import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { Archivo } from 'src/app/models/Archivo';
 import { Obra } from 'src/app/models/Obra';
+const TODOS_MESES = 13131313;
 
 @Component({
   selector: 'app-historial-archivo',
@@ -94,7 +95,7 @@ export class HistorialArchivoComponent implements OnInit {
 
   private formatearOpciones(): void {
     this.listadoAnos?.unshift('TODOS');
-    this.listadoMeses?.unshift({ id: 13131313, mes: 'TODOS' });
+    this.listadoMeses?.unshift({ id: TODOS_MESES, mes: 'TODOS' });
     this.listadoObras?.unshift({ _id: '', Nombre: 'TODAS' });
     this.formBuild();
   }

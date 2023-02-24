@@ -34,103 +34,15 @@ export class CargarArchivoComponent implements OnInit {
   listadoMeses = crearListaMeses();
   archivoSubido: { [key: string]: string }[];
   srcArchivo: string | ArrayBuffer | null = '';
-  files1: any[] = [
-    {
-      data: {
-        nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-        codigo: '198025',
-        consolidado: '853,470,881.11 ',
-      },
-      children: [
-        {
-          data: {
-            nombre: 'MATERIAS PRIMAS CONSTRUCCION',
-            codigo: '19802501',
-            consolidado: '2,350,592,569.23 ',
-            color: 'green',
-          },
-          children: [
-            {
-              data: {
-                nombre: 'MATERIALES DE CONSTRUCCION',
-                codigo: '1980250101',
-                consolidado: '10,286,589,193.00 ',
-                color: 'red',
-              },
-            },
-            {
-              data: {
-                nombre: 'MARIALES EN TRANSITO',
-                codigo: '1980250102',
-                consolidado: '0.00',
-              },
-            },
-            {
-              data: {
-                nombre: 'MATERIA PRIMA NO DEDUCIBLE',
-                codigo: '1980250103',
-                consolidado: '0.00',
-              },
-            },
-          ],
-        },
-        {
-          data: {
-            nombre: 'SOBRANTES Y/O FALTANTES DE INVENTARIO',
-            codigo: '19802502',
-            consolidado: '1.00 ',
-          },
-          children: [
-            {
-              data: {
-                nombre: 'MATERIALES',
-                codigo: '1980250201',
-                consolidado: '0.00',
-              },
-            },
-          ],
-        },
-      ],
-    },
-  ];
-  listaSimulada = [
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-  ];
+  files1: any[] = [];
+
   constructor(
     private backendService: BackendService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
+    this.formBuild();
     this.obtenerObras();
   }
 
@@ -165,7 +77,9 @@ export class CargarArchivoComponent implements OnInit {
           srcArchivo: srcArchivo[1],
         })
       )?.data;
+      console.log(respuesta);
       this.archivoSubido = respuesta[0]?.Informacion;
+      this.files1 = respuesta;
       this.loading = false;
       this.reinicioInput();
       alert('Archivo creado');

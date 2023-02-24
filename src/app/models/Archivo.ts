@@ -20,7 +20,7 @@ export interface Archivo {
   Mes: string;
   Ano: string;
   Obra: Obra;
-  Informacion: { [key: string]: string }[];
+  Informacion: any[];
   FechaCreacion: string;
   FechaActualizacion: string;
   __v?: number;
