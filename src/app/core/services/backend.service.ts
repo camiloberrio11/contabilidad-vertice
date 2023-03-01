@@ -10,9 +10,14 @@ import {
 } from 'src/app/models/Etiqueta';
 import {
   CrearArchivo,
+  EliminarRegistroArchivo,
   QueryArchivo,
   RespuestaArchivo,
 } from 'src/app/models/Archivo';
+import {
+  AsignarEtiqueta,
+  RespuestaAsignarEtiqueta,
+} from 'src/app/models/AsignacionEtiqueta';
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +83,24 @@ export class BackendService {
       this.http.post<RespuestaArchivo>(
         `${environment?.urlBackend}/api/obtenerarchivo`,
         query
+      )
+    );
+  }
+
+  asignarEtiqueta(body: AsignarEtiqueta): Promise<RespuestaAsignarEtiqueta> {
+    return firstValueFrom(
+      this.http.post<RespuestaAsignarEtiqueta>(
+        `${environment?.urlBackend}/api/asignaretiqueta`,
+        body
+      )
+    );
+  }
+
+  eliminarItemEnArchivo(info: EliminarRegistroArchivo): Promise<RespuestaAsignarEtiqueta> {
+    return firstValueFrom(
+      this.http.post<RespuestaAsignarEtiqueta>(
+        `${environment?.urlBackend}/api/eliminarregistro`,
+        { info }
       )
     );
   }

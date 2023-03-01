@@ -14,9 +14,9 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Etiqueta } from 'src/app/models/Etiqueta';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cargar-archivo',
@@ -32,7 +32,6 @@ export class CargarArchivoComponent implements OnInit {
   listadoEtiquetas: Etiqueta[] = [];
   listadoAnos = crearListaAnos();
   listadoMeses = crearListaMeses();
-  archivoSubido: { [key: string]: string }[];
   srcArchivo: string | ArrayBuffer | null = '';
   files1: any[] = [];
 
@@ -46,15 +45,22 @@ export class CargarArchivoComponent implements OnInit {
     this.obtenerObras();
   }
 
-  eliminarItem(item: any): void {
-    console.log(item);
-    const nuevoListado = [];
-    for (const iterator of this.files1) {
-    }
-    // this.files1 = this.files1.filter(it => it.)
+  confirmarEliminar(item: any): void {
+    Swal.fire({
+      title: 'Deseas eliminar este registro y sus hijos',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.eliminarItem(item);
+      }
+    });
   }
 
-  uploadFile(event: any) {
+  subirArchivo(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -77,9 +83,7 @@ export class CargarArchivoComponent implements OnInit {
           srcArchivo: srcArchivo[1],
         })
       )?.data;
-      console.log(respuesta);
-      this.archivoSubido = respuesta[0]?.Informacion;
-      this.files1 = respuesta;
+      this.mappearArchivo(respuesta);
       this.loading = false;
       this.reinicioInput();
       alert('Archivo creado');
@@ -146,11 +150,49 @@ export class CargarArchivoComponent implements OnInit {
     });
   }
 
-  private actualizarArchivo(): void {
-    this.loading = true;
-    setTimeout(() => {
-      this.files1 = this.files1;
+  private async actualizarArchivo(): Promise<void> {
+    try {
+      this.loading = true;
+      await this.backendService.asignarEtiqueta({
+        codigo: '1105',
+        idArchivo: '63fd15f262542c46b3a8af1c',
+        etiqueta: {
+          _id: '63e67f9314aca1d46902e8f8',
+          Nombre: 'TERRENO',
+          Estado: true,
+          Color: '#f00f0f',
+        },
+      });
       this.loading = false;
-    }, 2000);
+      alert('Etiqueta Actualizada');
+    } catch (error) {
+      this.loading = false;
+
+      console.log(error);
+    }
+  }
+
+  private mappearArchivo(archivo: any[]): void {
+    this.loading = true;
+    console.log(archivo);
+    this.loading = false;
+  }
+
+  private async eliminarItem(item: any): Promise<void> {
+    try {
+      this.loading = true;
+      const archivo = (
+        await this.backendService.eliminarItemEnArchivo({
+          id: '',
+          idRegistro: '',
+        })
+      )?.data;
+      this.mappearArchivo(archivo?.Informacion);
+      this.loading = false;
+      alert('Item eliminado');
+    } catch (error) {
+      this.loading = false;
+      console.log(error);
+    }
   }
 }

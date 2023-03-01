@@ -20,16 +20,34 @@ export interface Archivo {
   Mes: string;
   Ano: string;
   Obra: Obra;
-  Informacion: any[];
+  Informacion: {
+    data: {
+      nombre: string;
+      codigo: string;
+      consolidado: string;
+      etiqueta: {
+        _id: string;
+        Nombre: string;
+        Estado: boolean;
+        Color: string;
+      };
+      children?: any[];
+    };
+  }[];
   FechaCreacion: string;
   FechaActualizacion: string;
   __v?: number;
 }
-
 
 export interface QueryArchivo {
   ano: string;
   mes: string;
   obra: string;
   nombre: string;
+}
+
+
+export interface EliminarRegistroArchivo {
+  id: string;
+  idRegistro: string;
 }
