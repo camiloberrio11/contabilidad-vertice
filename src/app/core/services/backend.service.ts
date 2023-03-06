@@ -13,6 +13,7 @@ import {
   EliminarRegistroArchivo,
   QueryArchivo,
   RespuestaArchivo,
+  RespuestaCrearArchivo,
 } from 'src/app/models/Archivo';
 import {
   AsignarEtiqueta,
@@ -69,9 +70,9 @@ export class BackendService {
     );
   }
 
-  crearArchivo(body: CrearArchivo): Promise<RespuestaArchivo> {
+  crearArchivo(body: CrearArchivo): Promise<RespuestaCrearArchivo> {
     return firstValueFrom(
-      this.http.post<RespuestaArchivo>(
+      this.http.post<RespuestaCrearArchivo>(
         `${environment?.urlBackend}/api/archivo`,
         body
       )

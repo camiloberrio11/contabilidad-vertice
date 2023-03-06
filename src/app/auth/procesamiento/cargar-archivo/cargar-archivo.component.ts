@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
-import { Archivo } from 'src/app/models/Archivo';
+import { Archivo, RegistroArchivoItem, RespuestaCrearArchivo } from 'src/app/models/Archivo';
 import {
   UntypedFormControl,
   UntypedFormGroup,
@@ -17,6 +17,7 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 import Swal from 'sweetalert2';
+import { construirArbol } from '../../helpers/archivo';
 
 @Component({
   selector: 'app-cargar-archivo',
@@ -82,8 +83,8 @@ export class CargarArchivoComponent implements OnInit {
           obra: values?.obra,
           srcArchivo: srcArchivo[1],
         })
-      )?.data;
-      this.mappearArchivo(respuesta);
+      );
+      this.mappearArchivo(respuesta.data);
       this.loading = false;
       this.reinicioInput();
       alert('Archivo creado');
@@ -167,14 +168,13 @@ export class CargarArchivoComponent implements OnInit {
       alert('Etiqueta Actualizada');
     } catch (error) {
       this.loading = false;
-
       console.log(error);
     }
   }
 
-  private mappearArchivo(archivo: any[]): void {
+  private mappearArchivo(listadoArchivo: RegistroArchivoItem[]): void {
     this.loading = true;
-    console.log(archivo);
+    this.files1 = construirArbol(listadoArchivo)
     this.loading = false;
   }
 

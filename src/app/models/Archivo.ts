@@ -14,6 +14,22 @@ export interface RespuestaArchivo {
   data: Archivo[];
 }
 
+export interface RespuestaCrearArchivo {
+  ok: boolean;
+  message: string;
+  data: RegistroArchivoItem[];
+}
+
+export interface RegistroArchivoItem {
+  data: {
+    nombre: string;
+    codigo: string;
+    consolidado: string;
+    etiqueta?: any;
+    papaId?: string;
+  };
+}
+
 export interface Archivo {
   _id?: string;
   Nombre: string;
@@ -45,7 +61,6 @@ export interface QueryArchivo {
   obra: string;
   nombre: string;
 }
-
 
 export interface EliminarRegistroArchivo {
   id: string;

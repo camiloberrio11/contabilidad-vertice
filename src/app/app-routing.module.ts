@@ -6,10 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './pages/login/login.component';
 import { Error404Component } from './pages/error404/error404.component';
-
-// import { NestableComponent } from './plugins/nestable/nestable.component';
-// import { LightGalleryComponent } from './plugins/light-gallery/light-gallery.component';
-
 import { ObrasComponent } from './auth/obras/obras.component';
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
 
