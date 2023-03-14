@@ -8,7 +8,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
-import { Archivo, RegistroArchivoItem, RespuestaCrearArchivo } from 'src/app/models/Archivo';
+import {
+  Archivo,
+  RegistroArchivoItem,
+  RespuestaCrearArchivo,
+} from 'src/app/models/Archivo';
 import {
   UntypedFormControl,
   UntypedFormGroup,
@@ -18,6 +22,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 import Swal from 'sweetalert2';
 import { construirArbol } from '../../helpers/archivo';
+import { TipoArchivo } from 'src/app/models/TipoArchivo';
 
 @Component({
   selector: 'app-cargar-archivo',
@@ -30,6 +35,8 @@ export class CargarArchivoComponent implements OnInit {
   myInputVariable: ElementRef;
   formularioArchivo: UntypedFormGroup;
   listadoObras: Obra[] = [];
+  listadoTipoArchivo: TipoArchivo[] = [];
+
   listadoEtiquetas: Etiqueta[] = [];
   listadoAnos = crearListaAnos();
   listadoMeses = crearListaMeses();
@@ -42,8 +49,8 @@ export class CargarArchivoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.formBuild();
     this.obtenerObras();
+    this.formBuild();
   }
 
   confirmarEliminar(item: any): void {
@@ -70,20 +77,31 @@ export class CargarArchivoComponent implements OnInit {
     };
   }
 
+  revisarEstado(event: any) {
+    const checked = event?.srcElement?.checked;
+    if (checked) {
+      Swal.fire(
+        'Un momento',
+        'Recuerda que si seleccionas esto, se reemplazara por la que esté activa actualmente (Plantilla unica por obra por tipo de archivo)',
+        'info'
+      );
+    }
+  }
+
   async crearArchivo(): Promise<void> {
     try {
       this.loading = true;
       const srcArchivo = this.srcArchivo?.toString()?.split('base64,') || '';
       const values = this.formularioArchivo?.value;
-      const respuesta = (
-        await this.backendService.crearArchivo({
-          nombre: values?.nombre,
-          mes: values?.mes,
-          ano: values?.ano,
-          obra: values?.obra,
-          srcArchivo: srcArchivo[1],
-        })
-      );
+      const respuesta = await this.backendService.crearArchivo({
+        nombre: values?.nombre,
+        mes: values?.mes,
+        ano: values?.ano,
+        obra: values?.obra,
+        srcArchivo: srcArchivo[1],
+        esPlantilla: values?.esPlantilla,
+        tipoArchivoId: values?.tipoArchivo,
+      });
       this.mappearArchivo(respuesta.data);
       this.loading = false;
       this.reinicioInput();
@@ -130,11 +148,26 @@ export class CargarArchivoComponent implements OnInit {
       this.loading = true;
       const servicioObras = await this.backendService.listarObras();
       this.listadoObras = servicioObras.data;
-      this.formBuild();
+      this.obtenerListadoTipoArchivo();
+
       this.loading = false;
     } catch (error) {
       console.log(error);
       this.loading = false;
+    }
+  }
+
+  private async obtenerListadoTipoArchivo(): Promise<void> {
+    try {
+      this.loading = true;
+      this.listadoTipoArchivo = (
+        await this.backendService.obtenerListadoTipoArchivo()
+      )?.data;
+      this.loading = false;
+      this.formBuild();
+    } catch (error) {
+      this.loading = false;
+      console.log(error);
     }
   }
 
@@ -148,6 +181,10 @@ export class CargarArchivoComponent implements OnInit {
       obra: new UntypedFormControl(this.listadoObras[0]?._id, [
         Validators.required,
       ]),
+      tipoArchivo: new UntypedFormControl(this.listadoTipoArchivo[0]?._id, [
+        Validators.required,
+      ]),
+      esPlantilla: new UntypedFormControl(false, [Validators.required]),
     });
   }
 
@@ -174,7 +211,7 @@ export class CargarArchivoComponent implements OnInit {
 
   private mappearArchivo(listadoArchivo: RegistroArchivoItem[]): void {
     this.loading = true;
-    this.files1 = construirArbol(listadoArchivo)
+    this.files1 = construirArbol(listadoArchivo);
     this.loading = false;
   }
 

@@ -46,6 +46,8 @@ import { TablaEtiquetasComponent } from './shared/tabla-etiquetas/tabla-etiqueta
 import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/cargar-archivo.component';
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
 import {TreeTableModule} from 'primeng/treetable';
+import { TipoarchivoComponent } from './auth/tipoarchivo/tipoarchivo.component';
+import { TablaTipoArchivoComponent } from './shared/tabla-tipo-archivo/tabla-tipo-archivo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +70,8 @@ import {TreeTableModule} from 'primeng/treetable';
     TablaEtiquetasComponent,
     CargarArchivoComponent,
     HistorialArchivoComponent,
+    TipoarchivoComponent,
+    TablaTipoArchivoComponent,
   ],
   imports: [
     BrowserModule,

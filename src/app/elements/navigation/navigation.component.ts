@@ -14,6 +14,7 @@ export class NavigationComponent implements OnInit {
     father: 'Administacion',
     childrens: [
       { path: '/admin/obra', name: 'Crear obra' },
+      { path: '/admin/tipoarchivo', name: 'Crear Tipo Archivo' },
       { path: '/admin/etiqueta', name: 'Crear etiqueta' },
     ],
   };

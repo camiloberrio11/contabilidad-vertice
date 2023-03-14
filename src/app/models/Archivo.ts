@@ -6,6 +6,8 @@ export interface CrearArchivo {
   ano: string;
   obra: string;
   srcArchivo: string | ArrayBuffer | null;
+  esPlantilla: boolean;
+  tipoArchivoId: string;
 }
 
 export interface RespuestaArchivo {

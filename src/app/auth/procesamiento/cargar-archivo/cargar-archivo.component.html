@@ -85,6 +85,37 @@
                 </div>
 
                 <div class="form-group row">
+                  <label class="col-sm-3 col-form-label"
+                    >Seleccione tipo de archivo</label
+                  >
+                  <div class="col-sm-9">
+                    <select
+                      formControlName="tipoArchivo"
+                      class="form-control form-control-lg default-select"
+                      placeholder="Selecciona tipo archivo"
+                    >
+                      <option
+                        *ngFor="let tipoArchivo of listadoTipoArchivo"
+                        [value]="tipoArchivo?._id"
+                      >
+                        {{ tipoArchivo?.Nombre }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Será plantilla </label>
+                  <div class="col-sm-9">
+                    <input
+                      type="checkbox"
+                      formControlName="esPlantilla"
+                      (change)="revisarEstado($event)"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group row">
                   <div class="custom-file">
                     <input
                       type="file"

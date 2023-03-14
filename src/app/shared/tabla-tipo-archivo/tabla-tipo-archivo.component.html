@@ -1,0 +1,31 @@
+
+<form>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th sortable="name" scope="col">Nombre</th>
+          <th scope="col" sortable="population">Fecha creación</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listado; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <ngb-highlight [result]="item?.Nombre"></ngb-highlight>
+          </td>
+
+          <td>
+            <ngb-highlight
+              [result]="item?.FechaCreacion?.toString()"
+            ></ngb-highlight>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
+
