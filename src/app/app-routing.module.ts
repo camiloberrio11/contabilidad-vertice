@@ -8,7 +8,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { ObrasComponent } from './auth/obras/obras.component';
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
-import { TipoarchivoComponent } from './auth/tipoarchivo/tipoarchivo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,7 +16,6 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: 'obra', component: ObrasComponent },
-      { path: 'tipoarchivo', component: TipoarchivoComponent },
       { path: 'etiqueta', component: EtiquetasComponent },
       { path: 'cargaarchivo', component: CargarArchivoComponent },
       { path: 'historial-archivos', component: HistorialArchivoComponent },

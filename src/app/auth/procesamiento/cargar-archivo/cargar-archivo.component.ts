@@ -82,10 +82,20 @@ export class CargarArchivoComponent implements OnInit {
     if (checked) {
       Swal.fire(
         'Un momento',
-        'Recuerda que si seleccionas esto, se reemplazara por la que esté activa actualmente (Plantilla unica por obra por tipo de archivo)',
+        'Recuerda que si seleccionas esto, se reemplazará por la que esté activa actualmente (Plantilla unica por obra por tipo de archivo)',
         'info'
       );
     }
+  }
+
+  handle(event: any) {
+    const text =
+      event?.target?.value
+        ?.toUpperCase()
+        ?.trim()
+        ?.replace(/\s+/g, '')
+        ?.replace(/[^a-zA-Z\s]/g, '') || '';
+    this.formularioArchivo.patchValue({ nombre: text });
   }
 
   async crearArchivo(): Promise<void> {
@@ -181,7 +191,7 @@ export class CargarArchivoComponent implements OnInit {
       obra: new UntypedFormControl(this.listadoObras[0]?._id, [
         Validators.required,
       ]),
-      tipoArchivo: new UntypedFormControl(this.listadoTipoArchivo[0]?._id, [
+      tipoArchivo: new UntypedFormControl(this.listadoTipoArchivo[0]?.tipo, [
         Validators.required,
       ]),
       esPlantilla: new UntypedFormControl(false, [Validators.required]),

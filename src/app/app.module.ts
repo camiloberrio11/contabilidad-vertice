@@ -14,9 +14,6 @@ import { NestableModule } from 'ngx-nestable';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LightboxModule } from 'ngx-lightbox';
 
-
-
-
 import { MetismenuAngularModule } from '@metismenu/angular';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
@@ -45,13 +42,11 @@ import { TablaObrasComponent } from './shared/tabla-obras/tabla-obras.component'
 import { TablaEtiquetasComponent } from './shared/tabla-etiquetas/tabla-etiquetas.component';
 import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/cargar-archivo.component';
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
-import {TreeTableModule} from 'primeng/treetable';
-import { TipoarchivoComponent } from './auth/tipoarchivo/tipoarchivo.component';
-import { TablaTipoArchivoComponent } from './shared/tabla-tipo-archivo/tabla-tipo-archivo.component';
+import { TreeTableModule } from 'primeng/treetable';
+
 @NgModule({
   declarations: [
     AppComponent,
-
 
     AdminComponent,
     NavHeaderComponent,
@@ -70,8 +65,6 @@ import { TablaTipoArchivoComponent } from './shared/tabla-tipo-archivo/tabla-tip
     TablaEtiquetasComponent,
     CargarArchivoComponent,
     HistorialArchivoComponent,
-    TipoarchivoComponent,
-    TablaTipoArchivoComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +86,6 @@ import { TablaTipoArchivoComponent } from './shared/tabla-tipo-archivo/tabla-tip
     CarouselModule,
     MatSlideToggleModule,
     MatIconModule,
-
   ],
   providers: [SharedService],
   bootstrap: [AppComponent],

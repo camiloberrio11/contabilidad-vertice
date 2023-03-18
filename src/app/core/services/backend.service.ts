@@ -19,7 +19,7 @@ import {
   AsignarEtiqueta,
   RespuestaAsignarEtiqueta,
 } from 'src/app/models/AsignacionEtiqueta';
-import { CrearTipoArchivo, RespuestaTipoArchivo } from 'src/app/models/TipoArchivo';
+import {  RespuestaTipoArchivo } from 'src/app/models/TipoArchivo';
 
 @Injectable({
   providedIn: 'root',
@@ -102,15 +102,6 @@ export class BackendService {
     return firstValueFrom(
       this.http.post<RespuestaAsignarEtiqueta>(
         `${environment?.urlBackend}/api/eliminarregistro`,
-        { info }
-      )
-    );
-  }
-
-  crearTipoArchivo(info: CrearTipoArchivo): Promise<RespuestaTipoArchivo> {
-    return firstValueFrom(
-      this.http.post<RespuestaTipoArchivo>(
-        `${environment?.urlBackend}/api/tipoarchivo`,
         { info }
       )
     );

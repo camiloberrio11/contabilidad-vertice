@@ -1,6 +1,4 @@
-export interface CrearTipoArchivo {
-  nombre: string;
-}
+
 
 export interface RespuestaTipoArchivo {
   ok: boolean;
@@ -9,8 +7,6 @@ export interface RespuestaTipoArchivo {
 }
 
 export interface TipoArchivo {
-  _id?: string;
-  Nombre: string;
-  FechaCreacion?: string;
-  __v?: number;
+  id: number;
+  tipo: string;
 }

@@ -29,6 +29,7 @@
                       class="form-control"
                       placeholder="Nombre del archivo"
                       formControlName="nombre"
+                      (keyup)="handle($event)"
                     />
                   </div>
                 </div>
@@ -96,9 +97,9 @@
                     >
                       <option
                         *ngFor="let tipoArchivo of listadoTipoArchivo"
-                        [value]="tipoArchivo?._id"
+                        [value]="tipoArchivo?.tipo"
                       >
-                        {{ tipoArchivo?.Nombre }}
+                        {{ tipoArchivo?.tipo }}
                       </option>
                     </select>
                   </div>
@@ -119,6 +120,7 @@
                   <div class="custom-file">
                     <input
                       type="file"
+                      id="file"
                       #inputFile
                       class="custom-file-input"
                       (change)="subirArchivo($event)"
@@ -161,7 +163,7 @@
                     <th>Consolidado</th>
                     <th>Nombre</th>
                     <th>Etiqueta</th>
-                    <th>Eliminado</th>
+                    <th>Eliminar</th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
