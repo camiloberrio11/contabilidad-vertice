@@ -170,7 +170,8 @@
                   <tr
                     [ttRow]="rowNode"
                     [style]="{
-                      'background-color': rowData?.color || 'transparent'
+                      'background-color':
+                        rowData?.etiqueta?.Color || 'transparent'
                     }"
                   >
                     <td>
@@ -224,13 +225,14 @@
     </button>
   </div>
   <div class="modal-body default-calendar">
-    <form>
+    <form [formGroup]="formularioAsignarEtiqueta">
       <div class="form-group row">
         <label for="dateOfBirth">Etiqueta</label>
         <div class="col-sm-12">
           <select
             class="form-control form-control-lg default-select"
             placeholder="Selecciona etiqueta"
+            formControlName="etiqueta"
           >
             <option
               *ngFor="let etiqueta of listadoEtiquetas"
@@ -247,7 +249,7 @@
     <button
       type="button"
       class="btn btn-outline-dark"
-      (click)="modal.close('Save click')"
+      (click)="guardarEtiqueta()"
     >
       Guardar
     </button>

@@ -1,3 +1,4 @@
+import { RegistroArchivoItem } from './Archivo';
 import { Etiqueta } from './Etiqueta';
 
 export interface AsignarEtiqueta {
@@ -14,20 +15,5 @@ export interface AsignarEtiqueta {
 export interface RespuestaAsignarEtiqueta {
   ok: boolean;
   message: string;
-  data: {
-    _id: string;
-    Nombre: string;
-    Mes: string;
-    Ano: string;
-    Obra: string;
-    Informacion: {
-      data: {
-        nombre: string;
-        codigo: string;
-        consolidado: string;
-        etiqueta: Etiqueta;
-        children: any[];
-      };
-    }[];
-  };
+  data: RegistroArchivoItem[]
 }

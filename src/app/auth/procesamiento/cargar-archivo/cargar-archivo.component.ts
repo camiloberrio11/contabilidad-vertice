@@ -14,6 +14,8 @@ import {
   RespuestaCrearArchivo,
 } from 'src/app/models/Archivo';
 import {
+  FormControl,
+  FormGroup,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
@@ -36,6 +38,7 @@ export class CargarArchivoComponent implements OnInit {
   formularioArchivo: UntypedFormGroup;
   listadoObras: Obra[] = [];
   listadoTipoArchivo: TipoArchivo[] = [];
+  formularioAsignarEtiqueta: UntypedFormGroup;
 
   listadoEtiquetas: Etiqueta[] = [];
   listadoAnos = crearListaAnos();
@@ -51,6 +54,29 @@ export class CargarArchivoComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerObras();
     this.formBuild();
+  }
+
+  async guardarEtiqueta(): Promise<void> {
+    try {
+      this.loading = true;
+      const etiqueta: any = this.listadoEtiquetas.find(
+        (it) => it?._id === this.formularioAsignarEtiqueta.value?.etiqueta
+      );
+      console.log(this.formularioAsignarEtiqueta.value);
+      const result = await this.backendService.asignarEtiqueta({
+        codigo: this.formularioAsignarEtiqueta.value?.seleccionado?.codigo,
+        idArchivo: this.formularioAsignarEtiqueta.value?.idArchivoCreado,
+        etiqueta,
+      });
+      console.log(result);
+      this.mappearArchivo(result.data);
+      this.loading = false;
+      this.modalService.dismissAll();
+    } catch (error) {
+      this.loading = false;
+      console.log(error);
+      this.modalService.dismissAll();
+    }
   }
 
   confirmarEliminar(item: any): void {
@@ -112,6 +138,9 @@ export class CargarArchivoComponent implements OnInit {
         esPlantilla: values?.esPlantilla,
         tipoArchivoId: values?.tipoArchivo,
       });
+      this.formularioAsignarEtiqueta.patchValue({
+        idArchivoCreado: respuesta?.message,
+      });
       this.mappearArchivo(respuesta.data);
       this.loading = false;
       this.reinicioInput();
@@ -134,19 +163,18 @@ export class CargarArchivoComponent implements OnInit {
       consolidado: string;
     }
   ): Promise<void> {
+    console.log(item);
     try {
+      this.formularioAsignarEtiqueta.patchValue({ seleccionado: item });
       this.loading = true;
       this.listadoEtiquetas = (
         await this.backendService.listarEtiquetas()
       )?.data;
       this.loading = false;
-      const result = await this.modalService.open(component, {
+      await this.modalService.open(component, {
         ariaLabelledBy: 'modal-basic-title',
       }).result;
       this.loading = false;
-      if (result) {
-        this.actualizarArchivo();
-      }
     } catch (error) {
       this.loading = false;
       console.log('Error en modal', error);
@@ -196,27 +224,35 @@ export class CargarArchivoComponent implements OnInit {
       ]),
       esPlantilla: new UntypedFormControl(false, [Validators.required]),
     });
+
+    this.formularioAsignarEtiqueta = new UntypedFormGroup({
+      etiqueta: new UntypedFormControl(this.listadoEtiquetas[0]?._id, [
+        Validators.required,
+      ]),
+      seleccionado: new UntypedFormControl('', [Validators.required]),
+      idArchivoCreado: new UntypedFormControl('', [Validators.required]),
+    });
   }
 
   private async actualizarArchivo(): Promise<void> {
-    try {
-      this.loading = true;
-      await this.backendService.asignarEtiqueta({
-        codigo: '1105',
-        idArchivo: '63fd15f262542c46b3a8af1c',
-        etiqueta: {
-          _id: '63e67f9314aca1d46902e8f8',
-          Nombre: 'TERRENO',
-          Estado: true,
-          Color: '#f00f0f',
-        },
-      });
-      this.loading = false;
-      alert('Etiqueta Actualizada');
-    } catch (error) {
-      this.loading = false;
-      console.log(error);
-    }
+    // try {
+    //   this.loading = true;
+    //   await this.backendService.asignarEtiqueta({
+    //     codigo: '1105',
+    //     idArchivo: '63fd15f262542c46b3a8af1c',
+    //     etiqueta: {
+    //       _id: '63e67f9314aca1d46902e8f8',
+    //       Nombre: 'TERRENO',
+    //       Estado: true,
+    //       Color: '#f00f0f',
+    //     },
+    //   });
+    //   this.loading = false;
+    //   alert('Etiqueta Actualizada');
+    // } catch (error) {
+    //   this.loading = false;
+    //   console.log(error);
+    // }
   }
 
   private mappearArchivo(listadoArchivo: RegistroArchivoItem[]): void {
@@ -234,7 +270,7 @@ export class CargarArchivoComponent implements OnInit {
           idRegistro: '',
         })
       )?.data;
-      this.mappearArchivo(archivo?.Informacion);
+      // this.mappearArchivo(archivo?.Informacion);
       this.loading = false;
       alert('Item eliminado');
     } catch (error) {
