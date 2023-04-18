@@ -40,7 +40,8 @@
                   <label class="col-sm-3 col-form-label">Seleccione obra</label>
                   <div class="col-sm-9">
                     <select
-                    name="plan" id="plan"
+                      name="plan"
+                      id="plan"
                       formControlName="obra"
                       class="form-control form-control-lg default-select"
                       placeholder="Selecciona obra"
@@ -126,16 +127,10 @@
                     <th scope="col">Obra</th>
                     <th scope="col">Fecha creación</th>
                     <th scope="col">Ver</th>
-
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    *ngFor="
-                      let archivo of listadoArchivos;
-                      index as i
-                    "
-                  >
+                  <tr *ngFor="let archivo of listadoArchivos; index as i">
                     <th scope="row">{{ i + 1 }}</th>
                     <td>{{ archivo.Nombre }}</td>
                     <td>{{ archivo.Mes }}</td>
@@ -143,7 +138,10 @@
                     <td>{{ archivo?.Obra?.Nombre }}</td>
                     <td>{{ archivo.FechaCreacion }}</td>
                     <td>
-                      <button class="eye-item">
+                      <button
+                        class="eye-item"
+                        (click)="handleVerArchivo(archivo)"
+                      >
                         <mat-icon
                           aria-hidden="false"
                           aria-label="checkcircleoutline icon"
@@ -151,7 +149,6 @@
                         >
                       </button>
                     </td>
-
                   </tr>
                 </tbody>
               </table>
@@ -162,3 +159,4 @@
     </div>
   </div>
 </div>
+

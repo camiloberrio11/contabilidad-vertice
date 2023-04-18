@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import {
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { crearListaAnos, crearListaMeses } from 'src/app/core/helpers/fechas';
 import { BackendService } from 'src/app/core/services/backend.service';
-import { Archivo } from 'src/app/models/Archivo';
+import { Archivo, RegistroArchivoItem } from 'src/app/models/Archivo';
 import { Obra } from 'src/app/models/Obra';
+import { construirArbol } from '../../helpers/archivo';
+import { Router } from '@angular/router';
 const TODOS_MESES = 13131313;
 
 @Component({
@@ -17,46 +20,19 @@ const TODOS_MESES = 13131313;
 })
 export class HistorialArchivoComponent implements OnInit {
   formularioObtener: UntypedFormGroup;
-  listaSimulada = [
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-    {
-      codigo: 'AAA123',
-      consolidado: '854,765,12',
-      nombre: 'COSTOS PATRIMONIOS AUTONOMOS',
-    },
-  ];
   loading = false;
   listadoObras: Obra[] = [];
+  files1: any[] = [];
   listadoAnos = crearListaAnos();
   listadoMeses = crearListaMeses();
   listadoArchivos: Archivo[] = [];
-  constructor(private backendService: BackendService) {}
+  constructor(private backendService: BackendService,
+    private modalService: NgbModal,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
+    this.formBuild();
     this.obtenerObras();
   }
 
@@ -77,6 +53,10 @@ export class HistorialArchivoComponent implements OnInit {
       this.loading = false;
       console.log(error);
     }
+  }
+
+    async handleVerArchivo(info: Archivo): Promise<void> {
+      this.router.navigate(['/admin/verarchivo'], {state: {info: info?.Informacion, id: info?._id}});
   }
 
   private async obtenerObras(): Promise<void> {
@@ -112,4 +92,6 @@ export class HistorialArchivoComponent implements OnInit {
       ]),
     });
   }
+
+
 }

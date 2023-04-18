@@ -8,6 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { ObrasComponent } from './auth/obras/obras.component';
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
+import { VerArchivoHistorialComponent } from './auth/procesamiento/ver-archivo-historial/ver-archivo-historial.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'etiqueta', component: EtiquetasComponent },
       { path: 'cargaarchivo', component: CargarArchivoComponent },
       { path: 'historial-archivos', component: HistorialArchivoComponent },
+      { path: 'verarchivo', component: VerArchivoHistorialComponent },
     ],
   },
   { path: 'login', component: LoginComponent },

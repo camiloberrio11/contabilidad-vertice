@@ -43,6 +43,7 @@ import { TablaEtiquetasComponent } from './shared/tabla-etiquetas/tabla-etiqueta
 import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/cargar-archivo.component';
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
 import { TreeTableModule } from 'primeng/treetable';
+import { VerArchivoHistorialComponent } from './auth/procesamiento/ver-archivo-historial/ver-archivo-historial.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { TreeTableModule } from 'primeng/treetable';
     TablaEtiquetasComponent,
     CargarArchivoComponent,
     HistorialArchivoComponent,
+    VerArchivoHistorialComponent,
   ],
   imports: [
     BrowserModule,

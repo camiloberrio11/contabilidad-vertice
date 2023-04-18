@@ -14,8 +14,6 @@ import {
   RespuestaCrearArchivo,
 } from 'src/app/models/Archivo';
 import {
-  FormControl,
-  FormGroup,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
@@ -75,6 +73,7 @@ export class CargarArchivoComponent implements OnInit {
     } catch (error) {
       this.loading = false;
       console.log(error);
+      this.loading = false;
       this.modalService.dismissAll();
     }
   }
