@@ -7,7 +7,7 @@ export interface CrearArchivo {
   obra: string;
   srcArchivo: string | ArrayBuffer | null;
   esPlantilla: boolean;
-  tipoArchivoId: string;
+  tipoArchivo: string;
 }
 
 export interface RespuestaArchivo {

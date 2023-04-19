@@ -27,8 +27,8 @@
                 <ng-template pTemplate="header">
                   <tr>
                     <th>Codigo</th>
-                    <th>Consolidado</th>
                     <th>Nombre</th>
+                    <th>Consolidado</th>
                     <th>Etiqueta</th>
                     <th>Eliminar</th>
                   </tr>
@@ -45,9 +45,9 @@
                       <p-treeTableToggler
                         [rowNode]="rowNode"
                       ></p-treeTableToggler>
-                      {{ rowData?.nombre }}
+                      {{ rowData?.codigo }}
                     </td>
-                    <td>{{ rowData?.codigo }}</td>
+                    <td>{{ rowData?.nombre }}</td>
                     <td>{{ rowData?.consolidado }}</td>
                     <td>
                       <button (click)="openModalTags(contentbasic, rowData)">

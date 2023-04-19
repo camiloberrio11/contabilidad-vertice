@@ -22,7 +22,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 import Swal from 'sweetalert2';
 import { construirArbol } from '../../helpers/archivo';
-import { TipoArchivo } from 'src/app/models/TipoArchivo';
+
+const TIPO_ARCHIVO = ['VENTAS', 'COSTOS']
 
 @Component({
   selector: 'app-cargar-archivo',
@@ -35,7 +36,7 @@ export class CargarArchivoComponent implements OnInit {
   myInputVariable: ElementRef;
   formularioArchivo: UntypedFormGroup;
   listadoObras: Obra[] = [];
-  listadoTipoArchivo: TipoArchivo[] = [];
+  listadoTipoArchivo: string[] = TIPO_ARCHIVO;
   formularioAsignarEtiqueta: UntypedFormGroup;
 
   listadoEtiquetas: Etiqueta[] = [];
@@ -135,7 +136,7 @@ export class CargarArchivoComponent implements OnInit {
         obra: values?.obra,
         srcArchivo: srcArchivo[1],
         esPlantilla: values?.esPlantilla,
-        tipoArchivoId: values?.tipoArchivo,
+        tipoArchivo: values?.tipoArchivo,
       });
       this.formularioAsignarEtiqueta.patchValue({
         idArchivoCreado: respuesta?.message,
@@ -185,26 +186,10 @@ export class CargarArchivoComponent implements OnInit {
       this.loading = true;
       const servicioObras = await this.backendService.listarObras();
       this.listadoObras = servicioObras.data;
-      this.obtenerListadoTipoArchivo();
-
       this.loading = false;
     } catch (error) {
       console.log(error);
       this.loading = false;
-    }
-  }
-
-  private async obtenerListadoTipoArchivo(): Promise<void> {
-    try {
-      this.loading = true;
-      this.listadoTipoArchivo = (
-        await this.backendService.obtenerListadoTipoArchivo()
-      )?.data;
-      this.loading = false;
-      this.formBuild();
-    } catch (error) {
-      this.loading = false;
-      console.log(error);
     }
   }
 
@@ -218,7 +203,7 @@ export class CargarArchivoComponent implements OnInit {
       obra: new UntypedFormControl(this.listadoObras[0]?._id, [
         Validators.required,
       ]),
-      tipoArchivo: new UntypedFormControl(this.listadoTipoArchivo[0]?.tipo, [
+      tipoArchivo: new UntypedFormControl(this.listadoTipoArchivo[0], [
         Validators.required,
       ]),
       esPlantilla: new UntypedFormControl(false, [Validators.required]),
@@ -231,27 +216,6 @@ export class CargarArchivoComponent implements OnInit {
       seleccionado: new UntypedFormControl('', [Validators.required]),
       idArchivoCreado: new UntypedFormControl('', [Validators.required]),
     });
-  }
-
-  private async actualizarArchivo(): Promise<void> {
-    // try {
-    //   this.loading = true;
-    //   await this.backendService.asignarEtiqueta({
-    //     codigo: '1105',
-    //     idArchivo: '63fd15f262542c46b3a8af1c',
-    //     etiqueta: {
-    //       _id: '63e67f9314aca1d46902e8f8',
-    //       Nombre: 'TERRENO',
-    //       Estado: true,
-    //       Color: '#f00f0f',
-    //     },
-    //   });
-    //   this.loading = false;
-    //   alert('Etiqueta Actualizada');
-    // } catch (error) {
-    //   this.loading = false;
-    //   console.log(error);
-    // }
   }
 
   private mappearArchivo(listadoArchivo: RegistroArchivoItem[]): void {
