@@ -24,6 +24,12 @@ export class NavigationComponent implements OnInit {
       { path: '/admin/historial-archivos', name: 'Historial de archivos' },
     ],
   };
+  ListaFormulas: NavigationBar = {
+    father: 'Fórmulas',
+    childrens: [
+      { path: '/admin/crearformula', name: 'Construir formula' },
+    ],
+  };
 
   constructor(location: Location, router: Router) {
     router.events.subscribe((val) => {

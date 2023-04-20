@@ -44,22 +44,21 @@ import { CargarArchivoComponent } from './auth/procesamiento/cargar-archivo/carg
 import { HistorialArchivoComponent } from './auth/procesamiento/historial-archivo/historial-archivo.component';
 import { TreeTableModule } from 'primeng/treetable';
 import { VerArchivoHistorialComponent } from './auth/procesamiento/ver-archivo-historial/ver-archivo-historial.component';
+import { ArmarFormulasComponent } from './auth/formulas/armar-formulas/armar-formulas.component';
+import { DndModule } from 'ngx-drag-drop';
+import { DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
     AppComponent,
-
     AdminComponent,
     NavHeaderComponent,
     NavigationComponent,
     HeaderComponent,
     FooterComponent,
     LoadingComponent,
-
     LoginComponent,
-
     Error404Component,
-
     ObrasComponent,
     EtiquetasComponent,
     TablaObrasComponent,
@@ -67,6 +66,7 @@ import { VerArchivoHistorialComponent } from './auth/procesamiento/ver-archivo-h
     CargarArchivoComponent,
     HistorialArchivoComponent,
     VerArchivoHistorialComponent,
+    ArmarFormulasComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +78,6 @@ import { VerArchivoHistorialComponent } from './auth/procesamiento/ver-archivo-h
     HttpClientModule,
     NgbModule,
     TreeTableModule,
-
     NestableModule,
     NgxSpinnerModule,
     LightboxModule,
@@ -88,6 +87,8 @@ import { VerArchivoHistorialComponent } from './auth/procesamiento/ver-archivo-h
     CarouselModule,
     MatSlideToggleModule,
     MatIconModule,
+    DndModule,
+    DragDropModule,
   ],
   providers: [SharedService],
   bootstrap: [AppComponent],

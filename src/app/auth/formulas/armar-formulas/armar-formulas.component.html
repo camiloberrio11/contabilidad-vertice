@@ -1,0 +1,152 @@
+<ngx-loading [show]="loading"></ngx-loading>
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row page-titles mx-0">
+      <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+          <h4>Creacion de formulas</h4>
+          <p class="mb-0">
+            Acá podrás crear tus formulas a partir de tus archivos previamente
+            creados
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Archivo</h4>
+          </div>
+          <div class="card-body">
+            <div class="basic-form">
+              <form [formGroup]="formularioCrearEtiqueta">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label"
+                    >Seleccione archivo ventas</label
+                  >
+                  <div class="col-sm-9">
+                    <select
+                      formControlName="itemSeleccionadoVentas"
+                      class="form-control form-control-lg default-select"
+                      placeholder="Selecciona obra"
+                    >
+                      <option
+                        *ngFor="let itemVentas of listadoVentas"
+                        [value]="itemVentas?._id"
+                      >
+                        {{ itemVentas?.Nombre }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label"
+                    >Seleccione archivo costos</label
+                  >
+                  <div class="col-sm-9">
+                    <select
+                      formControlName="itemSeleccionadoCostos"
+                      class="form-control form-control-lg default-select"
+                      placeholder="Selecciona obra"
+                    >
+                      <option
+                        *ngFor="let itemCostos of listadoCostos"
+                        [value]="itemCostos?._id"
+                      >
+                        {{ itemCostos?.Nombre }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-10 col text-center">
+                    <button type="submit" class="btn btn-primary">
+                      Construir
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div *ngFor="let item of listItems">
+            <div
+              class="draggable"
+              [dndDraggable]="item"
+              dndEffectAllowed="copy"
+            >
+              {{ item.name }}
+            </div>
+          </div>
+        </div>
+
+        <ng-template #recursiveList let-list>
+          <section>
+            <div
+              *ngFor="let item of list; let i = index"
+              class="draggable"
+              [dndDraggable]="item"
+            >
+              {{ item.name }}
+
+              <div
+                *ngIf="item.children"
+                class="dropzone"
+                dndDropzone
+                (dndDrop)="onDrop($event, item.children)"
+              >
+                <div
+                  style="
+                    border: 1px gray;
+                    border-radius: 5px;
+                    padding: 15px;
+                    background-color: gray;
+                  "
+                  dndPlaceholderRef
+                ></div>
+                <ng-container
+                  *ngTemplateOutlet="
+                    recursiveList;
+                    context: { $implicit: item.children }
+                  "
+                ></ng-container>
+              </div>
+            </div>
+          </section>
+
+        </ng-template>
+
+        <div
+          class="dropzone"
+          dndDropzone
+          (dndDrop)="onDrop($event, dropedItems)"
+        >
+          <div
+            style="
+              border: 1px gray;
+              border-radius: 5px;
+              padding: 15px;
+              background-color: gray;
+            "
+            dndPlaceholderRef
+          ></div>
+          <ng-container
+            *ngTemplateOutlet="
+              recursiveList;
+              context: { $implicit: dropedItems }
+            "
+          ></ng-container>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

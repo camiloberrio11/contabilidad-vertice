@@ -56,6 +56,29 @@
           </li>
         </ul>
       </li>
+
+      <li [ngClass]="{ 'mm-active': validarRuta(ListaFormulas) }">
+        <a
+          class="has-arrow ai-icon"
+          href="javascript:void()"
+          aria-expanded="false"
+        >
+          <i class="flaticon-381-notebook-2"></i>
+          <span class="nav-text">{{ ListaFormulas.father }}</span>
+        </a>
+        <ul
+          aria-expanded="false"
+          [ngClass]="{ 'mm-show': validarRuta(ListaFormulas) }"
+        >
+          <li *ngFor="let item of ListaFormulas?.childrens">
+            <a
+              [routerLink]="[item.path]"
+              class="{{ currentHref == item.path ? 'mm-active' : '' }}"
+              >{{ item.name }}</a
+            >
+          </li>
+        </ul>
+      </li>
     </ul>
     <!-- <div class="copyright">
       <p>
