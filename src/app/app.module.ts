@@ -47,6 +47,7 @@ import { VerArchivoHistorialComponent } from './auth/procesamiento/ver-archivo-h
 import { ArmarFormulasComponent } from './auth/formulas/armar-formulas/armar-formulas.component';
 import { DndModule } from 'ngx-drag-drop';
 import { DragDropModule} from '@angular/cdk/drag-drop';
+import { NgDragDropModule } from "ng-drag-drop";
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { DragDropModule} from '@angular/cdk/drag-drop';
     MatIconModule,
     DndModule,
     DragDropModule,
+    NgDragDropModule.forRoot()
   ],
   providers: [SharedService],
   bootstrap: [AppComponent],

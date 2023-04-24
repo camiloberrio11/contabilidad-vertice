@@ -10,6 +10,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { DndDropEvent } from 'ngx-drag-drop';
+import { DropEvent } from 'ng-drag-drop';
 
 @Component({
   selector: 'app-armar-formulas',
@@ -19,30 +20,6 @@ import { DndDropEvent } from 'ngx-drag-drop';
 export class ArmarFormulasComponent implements OnInit {
   loading = false;
   formularioCrearEtiqueta: UntypedFormGroup;
-  draggable = {
-    // note that data is handled with JSON.stringify/JSON.parse
-    // only set simple data or POJO's as methods will be lost
-    effectAllowed: 'all',
-    disable: false,
-    handle: false
-  };
-  listItems = [
-    { id: 1, name: 'item1' },
-    { id: 2, name: 'item2' }
-  ];
-  dropedItems = [];
-
-
-  data = [
-    { value: 1 },
-    { value: 2 },
-    { value: 3 },
-    { value: 4 },
-    { value: 5 }
-  ];
-
-  formula = '';
-
   listadoVentas: any[] = [
     { Nombre: 'ARCHIVO 1 VENTAS', _id: 1 },
     { Nombre: 'ARCHIVO 2 VENTAS', _id: 2 },
@@ -57,30 +34,46 @@ export class ArmarFormulasComponent implements OnInit {
     { Nombre: 'ARCHIVO 5 COSTOS', _id: 5 },
     { Nombre: 'ARCHIVO 6 COSTOS', _id: 6 },
   ];
+
+  list1 = [
+    {codigo: '1', consolidado: '11'},
+    {codigo: '2', consolidado: '22'},
+    {codigo: '3', consolidado: '33'},
+    {codigo: '5', consolidado: '55'},
+  ];
+
+  list2: any[]= [];
+  textareaTemp = '';
+
+
+
   constructor() {
     this.formBuild();
   }
 
   ngOnInit(): void {}
 
-
-  onDrop(event: DndDropEvent, list?: any[]) {
-    if (list && (event.dropEffect === 'copy' || event.dropEffect === 'move')) {
-      let index = event.index;
-
-      if (typeof index === 'undefined') {
-        index = list.length;
-      }
-      event.data.index = index;
-      list.splice(index, 0, event.data);
-    }
-    console.log('dropped', JSON.stringify(event, null, 2));
+  onDrop(e: DropEvent) {
+    console.log(e);
+    this.textareaTemp = `${this.textareaTemp}${+e.dragData.consolidado}`
+    this.list2.push(e.dragData);
+    this.removeItem(e.dragData, this.list1);
   }
 
-  example(event: any) {
-    console.log(event?.dragData)
-    // this.formula += event.dragData.value;
+  fin() {
+    console.log(+this.textareaTemp)
   }
+
+  removeItem(item: any, list: Array<any>) {
+    let index = list
+      .map(function (e) {
+        return e.name;
+      })
+      .indexOf(item.name);
+    list.splice(index, 1);
+  }
+
+
 
   private formBuild(): void {
     this.formularioCrearEtiqueta = new UntypedFormGroup({

@@ -14,6 +14,7 @@
     </div>
 
     <div class="row">
+
       <div class="col-xl-12 col-lg-12">
         <div class="card">
           <div class="card-header">
@@ -75,128 +76,52 @@
         </div>
       </div>
 
-      <div class="container">
-        <div class="row">
-          <div *ngFor="let item of listItems">
-            <div
-              class="draggable"
-              [dndDraggable]="item"
-              dndEffectAllowed="copy"
-            >
-              {{ item.name }}
-            </div>
-          </div>
-        </div>
 
-        <ng-template #recursiveList let-list>
-          <section>
-            <div
-              *ngFor="let item of list; let i = index"
-              class="draggable"
-              [dndDraggable]="item"
-            >
-              {{ item.name }}
-              <!--
-              <div
-                *ngIf="item.children"
-                class="dropzone"
-                dndDropzone
-                (dndDrop)="onDrop($event, item.children)"
-              >
-                <dropzone
-                  style="
-                    border: 1px gray;
-                    border-radius: 5px;
-                    padding: 15px;
-                    background-color: gray;
-                  "
-                  dndPlaceholderRef
-                ></div>
-                <ng-container
-                  *ngTemplateOutlet="
-                    recursiveList;
-                    context: { $implicit: item.children }
-                  "
-                ></ng-container>
-              </div> -->
-            </div>
-          </section>
-        </ng-template>
-
-        <div
-          class="dropzone"
-          dndDropzone
-          (dndDrop)="onDrop($event, dropedItems)"
-        >
-          <div
-            style="
-              border: 1px gray;
-              border-radius: 5px;
-              padding: 15px;
-              background-color: gray;
-            "
-            dndPlaceholderRef
-          ></div>
-          <ng-container
-            *ngTemplateOutlet="
-              recursiveList;
-              context: { $implicit: dropedItems }
-            "
-          ></ng-container>
-        </div>
-      </div>
 
       <div class="container" style="border: 1px solid red">
-        <!-- <div
-          cdkDropList
-          id="list"
-          [cdkDropListData]="[1, 2, 3, 4, 5]"
-          [cdkDropListConnectedTo]="['textarea']"
-          (cdkDropListDropped)="example($event)"
-        >
-          <div *ngFor="let item of [1, 2, 3, 4, 5]" cdkDrag>{{ item }}</div>
-        </div> -->
-
-        <!-- <textarea
-          #textarea
-          rows="10"
-          cols="30"
-          id="textarea"
-          cdkDropList
-          [cdkDropListConnectedTo]="'textarea'"
-          (cdkDropListDropped)="example($event)"
-        ></textarea> -->
-
         <div class="row">
-          <div class="col-sm-4">
-            <h4>Columna de datos</h4>
-            <div
-              cdkDropList
-              id="list"
-              [cdkDropListData]="[1, 2, 3, 4, 5]"
-              [cdkDropListConnectedTo]="['textarea']"
-              (cdkDropListDropped)="example($event)"
-            >
-              <div *ngFor="let item of data" class="list-group-item" cdkDrag>
-                {{ item.value }}
-                >
-                <!-- {{ item.value }} -->
+          <div class="col-sm-3">
+            <div class="card card-outline-primary mb-3">
+              <div class="card-header card-inverse card-primary">Items</div>
+              <div class="card-block scroll-list">
+                <ul class="list-group">
+                  <li
+                    draggable
+                    *ngFor="let item of list1"
+                    [dragScope]="'drag-img'"
+                    [dragData]="item"
+                    class="list-group-item"
+                  >
+                    {{item.codigo}}
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div class="col-sm-8">
-            <h4>Área de texto</h4>
-            <textarea
-              [(ngModel)]="formula"
-              dndDropzone
-              rows="10"
-              id="textarea"
-              (cdkDropListDropped)="example($event)"
-              cdkDropList
-              #textarea
-            ></textarea>
+
+          <div class="col-sm-3">
+            <div
+              class="card card-outline-primary mb-3"
+              droppable
+              [dropScope]="'drag-img'"
+              (onDrop)="onDrop($event)"
+            >
+              <!-- <div class="card-header card-inverse card-primary">Drop here</div>
+              <div class="card-block scroll-list">
+                <ul class="list-group">
+                  <li *ngFor="let item of list2" class="list-group-item">
+                    {{item.codigo}}
+                  </li>
+                </ul>
+              </div> -->
+
+              <textarea [(ngModel)]="textareaTemp" name="mio" id="mio" cols="30" rows="10">{{textareaTemp}}</textarea>
+            </div>
           </div>
         </div>
+
+<button (click)="fin()">FIN</button>
+
       </div>
     </div>
   </div>
