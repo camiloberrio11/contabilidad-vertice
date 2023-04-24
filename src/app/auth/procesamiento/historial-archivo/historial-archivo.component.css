@@ -2,3 +2,10 @@
   border: none;
   background-color: transparent;
 }
+.active {
+  color: green;
+}
+
+.desactive {
+  color: red;
+}

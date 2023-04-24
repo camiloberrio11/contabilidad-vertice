@@ -54,14 +54,16 @@ export interface Archivo {
   }[];
   FechaCreacion: string;
   FechaActualizacion: string;
+  EsPlantilla: boolean;
+  TipoArchivo: 'VENTAS' | 'COSTOS'
   __v?: number;
 }
 
 export interface QueryArchivo {
-  ano: string;
-  mes: string;
-  obra: string;
-  nombre: string;
+  ano?: string;
+  mes?: string;
+  obra?: string;
+  nombre?: string;
 }
 
 export interface EliminarRegistroArchivo {

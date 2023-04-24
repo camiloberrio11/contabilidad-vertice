@@ -125,6 +125,9 @@
                     <th scope="col">Mes</th>
                     <th scope="col">Año</th>
                     <th scope="col">Obra</th>
+                    <th scope="col">Plantilla</th>
+                    <th scope="col">Tipo archivo</th>
+
                     <th scope="col">Fecha creación</th>
                     <th scope="col">Ver</th>
                   </tr>
@@ -136,6 +139,18 @@
                     <td>{{ archivo.Mes }}</td>
                     <td>{{ archivo.Ano }}</td>
                     <td>{{ archivo?.Obra?.Nombre }}</td>
+                    <td>
+
+                      <mat-icon
+                      aria-hidden="false"
+                      aria-label="Example checkcircleoutline icon"
+                      [ngClass]="archivo?.EsPlantilla ? 'active' : 'desactive'"
+                      >{{ archivo?.EsPlantilla ? "check" : "close" }}</mat-icon>
+
+
+                    </td>
+                    <td>{{ archivo?.TipoArchivo }}</td>
+
                     <td>{{ archivo.FechaCreacion }}</td>
                     <td>
                       <button
