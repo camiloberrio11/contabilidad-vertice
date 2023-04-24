@@ -1,5 +1,4 @@
 import { RegistroArchivoItem } from './Archivo';
-import { Etiqueta } from './Etiqueta';
 
 export interface AsignarEtiqueta {
   codigo: string;

@@ -65,6 +65,6 @@ export interface QueryArchivo {
 }
 
 export interface EliminarRegistroArchivo {
-  id: string;
+  _id: string;
   idRegistro: string;
 }

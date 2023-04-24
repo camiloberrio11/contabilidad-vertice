@@ -96,14 +96,14 @@
               [dndDraggable]="item"
             >
               {{ item.name }}
-
+              <!--
               <div
                 *ngIf="item.children"
                 class="dropzone"
                 dndDropzone
                 (dndDrop)="onDrop($event, item.children)"
               >
-                <div
+                <dropzone
                   style="
                     border: 1px gray;
                     border-radius: 5px;
@@ -118,10 +118,9 @@
                     context: { $implicit: item.children }
                   "
                 ></ng-container>
-              </div>
+              </div> -->
             </div>
           </section>
-
         </ng-template>
 
         <div
@@ -147,6 +146,58 @@
         </div>
       </div>
 
+      <div class="container" style="border: 1px solid red">
+        <!-- <div
+          cdkDropList
+          id="list"
+          [cdkDropListData]="[1, 2, 3, 4, 5]"
+          [cdkDropListConnectedTo]="['textarea']"
+          (cdkDropListDropped)="example($event)"
+        >
+          <div *ngFor="let item of [1, 2, 3, 4, 5]" cdkDrag>{{ item }}</div>
+        </div> -->
+
+        <!-- <textarea
+          #textarea
+          rows="10"
+          cols="30"
+          id="textarea"
+          cdkDropList
+          [cdkDropListConnectedTo]="'textarea'"
+          (cdkDropListDropped)="example($event)"
+        ></textarea> -->
+
+        <div class="row">
+          <div class="col-sm-4">
+            <h4>Columna de datos</h4>
+            <div
+              cdkDropList
+              id="list"
+              [cdkDropListData]="[1, 2, 3, 4, 5]"
+              [cdkDropListConnectedTo]="['textarea']"
+              (cdkDropListDropped)="example($event)"
+            >
+              <div *ngFor="let item of data" class="list-group-item" cdkDrag>
+                {{ item.value }}
+                >
+                <!-- {{ item.value }} -->
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <h4>Área de texto</h4>
+            <textarea
+              [(ngModel)]="formula"
+              dndDropzone
+              rows="10"
+              id="textarea"
+              (cdkDropListDropped)="example($event)"
+              cdkDropList
+              #textarea
+            ></textarea>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

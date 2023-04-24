@@ -101,7 +101,7 @@ export class BackendService {
     return firstValueFrom(
       this.http.post<RespuestaAsignarEtiqueta>(
         `${environment?.urlBackend}/api/eliminarregistro`,
-        { info }
+        { ...info }
       )
     );
   }

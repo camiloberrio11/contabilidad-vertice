@@ -44,7 +44,6 @@ export class CargarArchivoComponent implements OnInit {
   listadoMeses = crearListaMeses();
   srcArchivo: string | ArrayBuffer | null = '';
   files1: any[] = [];
-
   constructor(
     private backendService: BackendService,
     private modalService: NgbModal
@@ -82,7 +81,6 @@ export class CargarArchivoComponent implements OnInit {
   confirmarEliminar(item: any): void {
     Swal.fire({
       title: 'Deseas eliminar este registro y sus hijos',
-      showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Si, eliminar',
       denyButtonText: `Cancelar`,
@@ -225,15 +223,16 @@ export class CargarArchivoComponent implements OnInit {
   }
 
   private async eliminarItem(item: any): Promise<void> {
+    console.log(item);
     try {
       this.loading = true;
-      const archivo = (
+      const result = (
         await this.backendService.eliminarItemEnArchivo({
-          id: '',
-          idRegistro: '',
+          _id: this.formularioAsignarEtiqueta.value?.idArchivoCreado,
+          idRegistro: item?.codigo,
         })
-      )?.data;
-      // this.mappearArchivo(archivo?.Informacion);
+      );
+      this.mappearArchivo(result?.data);
       this.loading = false;
       alert('Item eliminado');
     } catch (error) {

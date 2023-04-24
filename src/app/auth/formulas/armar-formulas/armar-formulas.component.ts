@@ -27,10 +27,21 @@ export class ArmarFormulasComponent implements OnInit {
     handle: false
   };
   listItems = [
-    { id: 1, name: 'item1', children: [] },
-    { id: 2, name: 'item2', children: [] }
+    { id: 1, name: 'item1' },
+    { id: 2, name: 'item2' }
   ];
   dropedItems = [];
+
+
+  data = [
+    { value: 1 },
+    { value: 2 },
+    { value: 3 },
+    { value: 4 },
+    { value: 5 }
+  ];
+
+  formula = '';
 
   listadoVentas: any[] = [
     { Nombre: 'ARCHIVO 1 VENTAS', _id: 1 },
@@ -64,6 +75,11 @@ export class ArmarFormulasComponent implements OnInit {
       list.splice(index, 0, event.data);
     }
     console.log('dropped', JSON.stringify(event, null, 2));
+  }
+
+  example(event: any) {
+    console.log(event?.dragData)
+    // this.formula += event.dragData.value;
   }
 
   private formBuild(): void {

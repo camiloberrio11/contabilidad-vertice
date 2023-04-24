@@ -6,7 +6,12 @@ import { construirArbol } from '../../helpers/archivo';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 import { BackendService } from 'src/app/core/services/backend.service';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ver-archivo-historial',
@@ -31,9 +36,11 @@ export class VerArchivoHistorialComponent {
       this.route?.navigate(['admin/historial-archivos']);
       return;
     }
-    console.log(this.state?.info)
+    console.log(this.state?.info);
     this.mappearArchivo(this.state?.info);
-    this.formularioAsignarEtiqueta.patchValue({idArchivoCreado: this?.state?.id})
+    this.formularioAsignarEtiqueta.patchValue({
+      idArchivoCreado: this?.state?.id,
+    });
   }
 
   async guardarEtiqueta(): Promise<void> {
@@ -70,7 +77,6 @@ export class VerArchivoHistorialComponent {
   ): Promise<void> {
     console.log(item);
     try {
-
       this.loading = true;
       this.listadoEtiquetas = (
         await this.backendService.listarEtiquetas()
@@ -88,6 +94,36 @@ export class VerArchivoHistorialComponent {
     }
   }
 
+  confirmarEliminar(item: any): void {
+    Swal.fire({
+      title: 'Deseas eliminar este registro y sus hijos',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.eliminarItem(item);
+      }
+    });
+  }
+
+  async eliminarItem(fileInfo: any) {
+    console.log(fileInfo);
+    console.log(this.state?.id);
+    this.loading = true;
+    try {
+      const result = await this.backendService.eliminarItemEnArchivo({
+        _id: this.state.id,
+        idRegistro: fileInfo?.codigo,
+      });
+      this.loading = false;
+      this.mappearArchivo(result.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   private mappearArchivo(listadoArchivo: RegistroArchivoItem[]): void {
     this.loading = true;
     this.files1 = construirArbol(listadoArchivo);
@@ -95,13 +131,15 @@ export class VerArchivoHistorialComponent {
   }
 
   private formBuild() {
-    console.log(this.route.getCurrentNavigation()?.extras.state?.id)
+    console.log(this.route.getCurrentNavigation()?.extras.state?.id);
     this.formularioAsignarEtiqueta = new UntypedFormGroup({
       etiqueta: new UntypedFormControl(this.listadoEtiquetas[0]?._id, [
         Validators.required,
       ]),
       seleccionado: new UntypedFormControl('', [Validators.required]),
-      idArchivoCreado: new UntypedFormControl(this.state?.id, [Validators.required]),
+      idArchivoCreado: new UntypedFormControl(this.state?.id, [
+        Validators.required,
+      ]),
     });
   }
 }
