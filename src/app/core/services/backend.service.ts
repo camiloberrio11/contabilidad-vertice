@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CrearObra, Obra, RespuestaObra } from 'src/app/models/Obra';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -19,6 +19,7 @@ import {
   AsignarEtiqueta,
   RespuestaAsignarEtiqueta,
 } from 'src/app/models/AsignacionEtiqueta';
+import { BodyCrearArchivo } from 'src/app/models/Excel';
 
 @Injectable({
   providedIn: 'root',
@@ -97,12 +98,28 @@ export class BackendService {
     );
   }
 
-  eliminarItemEnArchivo(info: EliminarRegistroArchivo): Promise<RespuestaAsignarEtiqueta> {
+  eliminarItemEnArchivo(
+    info: EliminarRegistroArchivo
+  ): Promise<RespuestaAsignarEtiqueta> {
     return firstValueFrom(
       this.http.post<RespuestaAsignarEtiqueta>(
         `${environment?.urlBackend}/api/eliminarregistro`,
         { ...info }
       )
+    );
+  }
+
+  crearArchivoExcel(info: BodyCrearArchivo): Promise<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'blob', // Se indica que se espera recibir un archivo
+    };
+    return firstValueFrom(
+      this.http.post<any>(`${environment?.urlBackend}/api/excel`, {
+        ...info,
+      })
     );
   }
 }

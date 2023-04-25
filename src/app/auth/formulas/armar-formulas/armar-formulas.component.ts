@@ -4,13 +4,6 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
-import { DndDropEvent } from 'ngx-drag-drop';
-import { DropEvent } from 'ng-drag-drop';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { Archivo } from 'src/app/models/Archivo';
 import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
@@ -27,49 +20,15 @@ export class ArmarFormulasComponent implements OnInit {
   formularioCrearEtiqueta: UntypedFormGroup;
   listadoVentas: Archivo[] = [];
   listadoCostos: Archivo[] = [];
-
+  resultadosEnArchivos = false;
 
   itemsVentas: TreeviewItem[] = [];
   itemsCostos: TreeviewItem[] = [];
 
-
-  items: TreeviewItem[] = [
-    new TreeviewItem({
-      text: 'Parent 1',
-      value: 1,
-      children: [
-        {
-          text: 'Child 1.1',
-          value: 11,
-        },
-        {
-          text: 'Child 1.2',
-          value: 12,
-        },
-      ],
-      checked: false,
-    }),
-    new TreeviewItem({
-      text: 'Parent 2',
-      value: 2,
-      children: [
-        {
-          text: 'Child 2.1',
-          value: 21,
-        },
-        {
-          text: 'Child 2.2',
-          value: 22,
-        },
-      ],
-      checked: false,
-    }),
-  ];
-
   config: TreeviewConfig = {
     hasAllCheckBox: false,
     hasFilter: true,
-    hasCollapseExpand: false,
+    hasCollapseExpand: true,
     maxHeight: 400,
     decoupleChildFromParent: false,
     hasDivider: true,
@@ -77,7 +36,6 @@ export class ArmarFormulasComponent implements OnInit {
 
   selectedItems = '0';
   selectedItemsMath: number;
-
   archivoExcel: any[] = [];
 
   constructor(private readonly backendService: BackendService) {
@@ -142,29 +100,19 @@ export class ArmarFormulasComponent implements OnInit {
         it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoCostos
     );
 
+    const resultadoCostos = construirArbol(archivoCostos?.Informacion);
+    const resultadoVentas = construirArbol(archivoVentas?.Informacion);
 
+    this.itemsCostos = resultadoCostos.map((obj: any) => {
+      return this.convertToTreeviewItem(obj);
+    });
 
-    const result = construirArbol(archivoCostos?.Informacion);
-    console.log(result);
+    this.itemsVentas = resultadoVentas.map((obj: any) => {
+      return this.convertToTreeviewItem(obj);
+    });
 
-
-    // this.itemsCostos
-    // {
-    //   text: 'Parent 2',
-    //   value: 2,
-    //   children: [
-    //     {
-    //       text: 'Child 2.1',
-    //       value: 21,
-    //     },
-    //     {
-    //       text: 'Child 2.2',
-    //       value: 22,
-    //     },
-    //   ],
-    //   checked: false,
-    // }
-
+    this.resultadosEnArchivos =
+      this.itemsCostos?.length > 0 || this.itemsVentas?.length > 0;
   }
 
   // private mappearArchivo(listadoArchivo: RegistroArchivoItem[]): void {
@@ -174,7 +122,14 @@ export class ArmarFormulasComponent implements OnInit {
   // }
 
   itemsArbolEstado(): void {
-    this.items.forEach((item) => {
+    this.itemsVentas?.forEach((item) => {
+      item.checked = false;
+      if (item.children) {
+        item.children.forEach((child) => (child.checked = false));
+      }
+    });
+
+    this.itemsCostos?.forEach((item) => {
       item.checked = false;
       if (item.children) {
         item.children.forEach((child) => (child.checked = false));
@@ -182,10 +137,27 @@ export class ArmarFormulasComponent implements OnInit {
     });
   }
 
-  guardarItem(): void {
+  alertaGuardarItem() {
+    Swal.fire({
+      title: 'Dale un nombre a la columna a guardar',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const nombreFila = result.value || `${this.archivoExcel?.length}`;
+        console.log(nombreFila);
+        this.guardarItem(nombreFila);
+      }
+    });
+  }
+
+  guardarItem(name: string): void {
     this.archivoExcel.push({
-      id: this.archivoExcel.length,
-      value: this.selectedItemsMath,
+      id: name,
+      value: `${this.selectedItemsMath}`,
     });
     this.changeTextArea(`0`);
     this.itemsArbolEstado();
@@ -212,6 +184,26 @@ export class ArmarFormulasComponent implements OnInit {
 
   private async finalizar(nombreArchivo: string): Promise<void> {
     console.log('Llama a generar archivo');
+
+    try {
+      this.loading = true;
+      const { data } = await this.backendService.crearArchivoExcel({
+        list: this.archivoExcel,
+      });
+      //const url = window.URL.createObjectURL(blob); // Se crea una URL del objeto Blob
+
+      const dataUrl = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${data}`;
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = `${nombreArchivo}.xlsx`;
+      link.click();
+      this.archivoExcel = [];
+      this.changeTextArea(`0`);
+      this.itemsArbolEstado();
+      this.loading = false;
+    } catch (error) {
+      this.loading = false;
+    }
   }
 
   private formBuild(): void {
@@ -225,5 +217,23 @@ export class ArmarFormulasComponent implements OnInit {
         [Validators.required]
       ),
     });
+  }
+
+  // Funcionabilidad libreria
+  convertToTreeviewItem(obj: any): TreeviewItem {
+    const item = new TreeviewItem({
+      text: obj.data.nombre,
+      value: obj.data.codigo,
+      checked: false,
+      collapsed: true,
+    });
+
+    if (obj.children && obj.children?.length > 0) {
+      item.children = obj.children.map((child: any) => {
+        return this.convertToTreeviewItem(child);
+      });
+    }
+
+    return item;
   }
 }
