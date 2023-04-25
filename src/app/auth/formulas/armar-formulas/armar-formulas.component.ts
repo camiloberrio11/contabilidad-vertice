@@ -13,6 +13,9 @@ import { DndDropEvent } from 'ngx-drag-drop';
 import { DropEvent } from 'ng-drag-drop';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { Archivo } from 'src/app/models/Archivo';
+import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
+import Swal from 'sweetalert2';
+import { construirArbol } from '../../helpers/archivo';
 
 @Component({
   selector: 'app-armar-formulas',
@@ -22,48 +25,93 @@ import { Archivo } from 'src/app/models/Archivo';
 export class ArmarFormulasComponent implements OnInit {
   loading = false;
   formularioCrearEtiqueta: UntypedFormGroup;
-  listadoVentas: Archivo[] = [
-    // { Nombre: 'ARCHIVO 1 VENTAS', _id: 1 },
-    // { Nombre: 'ARCHIVO 2 VENTAS', _id: 2 },
-    // { Nombre: 'ARCHIVO 3 VENTAS', _id: 3 },
-    // { Nombre: 'ARCHIVO 4 VENTAS', _id: 4 },
-  ];
-  listadoCostos: Archivo[] = [
-    //   { Nombre: 'ARCHIVO 1 COSTOS', _id: 1 },
-    //   { Nombre: 'ARCHIVO 2 COSTOS', _id: 2 },
-    //   { Nombre: 'ARCHIVO 3 COSTOS', _id: 3 },
-    //   { Nombre: 'ARCHIVO 4 COSTOS', _id: 4 },
-    //   { Nombre: 'ARCHIVO 5 COSTOS', _id: 5 },
-    //   { Nombre: 'ARCHIVO 6 COSTOS', _id: 6 },
+  listadoVentas: Archivo[] = [];
+  listadoCostos: Archivo[] = [];
+
+
+  itemsVentas: TreeviewItem[] = [];
+  itemsCostos: TreeviewItem[] = [];
+
+
+  items: TreeviewItem[] = [
+    new TreeviewItem({
+      text: 'Parent 1',
+      value: 1,
+      children: [
+        {
+          text: 'Child 1.1',
+          value: 11,
+        },
+        {
+          text: 'Child 1.2',
+          value: 12,
+        },
+      ],
+      checked: false,
+    }),
+    new TreeviewItem({
+      text: 'Parent 2',
+      value: 2,
+      children: [
+        {
+          text: 'Child 2.1',
+          value: 21,
+        },
+        {
+          text: 'Child 2.2',
+          value: 22,
+        },
+      ],
+      checked: false,
+    }),
   ];
 
-  list1: any = [
-    // {codigo: '1', consolidado: '11'},
-    // {codigo: '2', consolidado: '22'},
-    // {codigo: '3', consolidado: '33'},
-    // {codigo: '5', consolidado: '55'},
-  ];
+  config: TreeviewConfig = {
+    hasAllCheckBox: false,
+    hasFilter: true,
+    hasCollapseExpand: false,
+    maxHeight: 400,
+    decoupleChildFromParent: false,
+    hasDivider: true,
+  };
 
-  list2: any[] = [];
-  textareaTemp = '';
+  selectedItems = '0';
+  selectedItemsMath: number;
+
+  archivoExcel: any[] = [];
 
   constructor(private readonly backendService: BackendService) {
     this.formBuild();
+    this.itemsArbolEstado();
   }
 
   ngOnInit(): void {
     this.obtenerArchivos();
   }
 
-  onDrop(e: DropEvent) {
-    console.log(e);
-    this.textareaTemp = `${this.textareaTemp}${+e.dragData.consolidado}`;
-    this.list2.push(e.dragData);
-    // this.removeItem(e.dragData, this.list1);
+  onSelectedChangeVentas(event: number[]) {
+    console.log(event);
+    if (event.length > 0) {
+      this.selectedItems = `${this.selectedItems}+${event?.pop()}`;
+      this.selectedItemsMath = eval(this.selectedItems);
+    } else {
+      this.selectedItems = `0`;
+      this.selectedItemsMath = eval(this.selectedItems);
+    }
   }
 
-  fin() {
-    console.log(+this.textareaTemp);
+  onSelectedChangeCostos(event: number[]) {
+    console.log(event);
+    if (event.length > 0) {
+      this.changeTextArea(`${this.selectedItems}+${event?.pop()}`);
+    } else {
+      this.changeTextArea(`0`);
+    }
+  }
+
+  private changeTextArea(value: string) {
+    this.selectedItems = value;
+    this.selectedItemsMath = eval(this.selectedItems);
   }
 
   private async obtenerArchivos() {
@@ -85,17 +133,85 @@ export class ArmarFormulasComponent implements OnInit {
   }
 
   buscar() {
-    const archivoVentas = this.listadoVentas.find(
+    const archivoVentas: any = this.listadoVentas.find(
       (it) =>
         it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoVentas
     );
-    const archivoCostos = this.listadoCostos.find(
+    const archivoCostos: any = this.listadoCostos.find(
       (it) =>
         it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoCostos
     );
-    this.list1 = archivoCostos?.Informacion?.filter(
-      (it) => it.data.etiqueta !== null
-    )?.map((item) => item?.data);
+
+
+
+    const result = construirArbol(archivoCostos?.Informacion);
+    console.log(result);
+
+
+    // this.itemsCostos
+    // {
+    //   text: 'Parent 2',
+    //   value: 2,
+    //   children: [
+    //     {
+    //       text: 'Child 2.1',
+    //       value: 21,
+    //     },
+    //     {
+    //       text: 'Child 2.2',
+    //       value: 22,
+    //     },
+    //   ],
+    //   checked: false,
+    // }
+
+  }
+
+  // private mappearArchivo(listadoArchivo: RegistroArchivoItem[]): void {
+  //   this.loading = true;
+  //   this.files1 = construirArbol(listadoArchivo);
+  //   this.loading = false;
+  // }
+
+  itemsArbolEstado(): void {
+    this.items.forEach((item) => {
+      item.checked = false;
+      if (item.children) {
+        item.children.forEach((child) => (child.checked = false));
+      }
+    });
+  }
+
+  guardarItem(): void {
+    this.archivoExcel.push({
+      id: this.archivoExcel.length,
+      value: this.selectedItemsMath,
+    });
+    this.changeTextArea(`0`);
+    this.itemsArbolEstado();
+    alert('Item guardado');
+  }
+
+  alertFinalizarArchivo(): void {
+    Swal.fire({
+      title: 'Deseas finalizar el archivo, asignale un nombre a este archivo',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Si, finalizar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const nombreArchivo =
+          result.value || `archivo-${new Date()?.toISOString()?.split('T')[0]}`;
+        console.log(nombreArchivo);
+        this.finalizar(nombreArchivo);
+      }
+    });
+  }
+
+  private async finalizar(nombreArchivo: string): Promise<void> {
+    console.log('Llama a generar archivo');
   }
 
   private formBuild(): void {
@@ -111,8 +227,3 @@ export class ArmarFormulasComponent implements OnInit {
     });
   }
 }
-
-[
-  { data: { codigo: '1', nombre: 'hola' } },
-  { data: { codigo: '2', nombre: 'mundo' } },
-];

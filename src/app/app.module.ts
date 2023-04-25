@@ -46,8 +46,9 @@ import { TreeTableModule } from 'primeng/treetable';
 import { VerArchivoHistorialComponent } from './auth/procesamiento/ver-archivo-historial/ver-archivo-historial.component';
 import { ArmarFormulasComponent } from './auth/formulas/armar-formulas/armar-formulas.component';
 import { DndModule } from 'ngx-drag-drop';
-import { DragDropModule} from '@angular/cdk/drag-drop';
-import { NgDragDropModule } from "ng-drag-drop";
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgDragDropModule } from 'ng-drag-drop';
+import { TreeviewModule } from 'ngx-treeview';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { NgDragDropModule } from "ng-drag-drop";
     MatIconModule,
     DndModule,
     DragDropModule,
-    NgDragDropModule.forRoot()
+    NgDragDropModule.forRoot(),
+    TreeviewModule.forRoot(),
   ],
   providers: [SharedService],
   bootstrap: [AppComponent],
