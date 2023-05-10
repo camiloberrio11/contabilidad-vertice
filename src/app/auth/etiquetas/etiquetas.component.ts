@@ -1,7 +1,12 @@
 import { BackendService } from 'src/app/core/services/backend.service';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Etiqueta } from 'src/app/models/Etiqueta';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-etiquetas',
@@ -13,7 +18,10 @@ export class EtiquetasComponent implements OnInit {
   loading = false;
   listaEtiquetas: Etiqueta[] = [];
 
-  constructor(private readonly backendService: BackendService) {}
+  constructor(
+    private readonly backendService: BackendService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.formBuild();
@@ -21,14 +29,14 @@ export class EtiquetasComponent implements OnInit {
   }
 
   handleNombreEtiqueta(event: any): void {
-    const {value} = event?.target;
+    const { value } = event?.target;
     this.formularioCrearEtiqueta.patchValue({ nombre: value?.toUpperCase() });
   }
 
   async handleGuardarEtiqueta(): Promise<void> {
     try {
       if (this.formularioCrearEtiqueta?.invalid) {
-        alert('Formulario invalido');
+        this.toastr.error('Formulario inválido');
         return;
       }
       this.loading = true;
@@ -39,8 +47,9 @@ export class EtiquetasComponent implements OnInit {
       });
       this.loading = false;
       this.listarEtiquetas();
-      alert('Etiqueta creada');
+      this.toastr.success('Etiqueta creada');
     } catch (error) {
+      this.toastr.error(JSON.stringify(error));
       this.loading = false;
       console.log(error);
     }

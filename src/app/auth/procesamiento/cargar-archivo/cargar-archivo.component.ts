@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Obra } from 'src/app/models/Obra';
 import { BackendService } from './../../../core/services/backend.service';
 import {
@@ -46,7 +47,8 @@ export class CargarArchivoComponent implements OnInit {
   files1: any[] = [];
   constructor(
     private backendService: BackendService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -142,7 +144,7 @@ export class CargarArchivoComponent implements OnInit {
       this.mappearArchivo(respuesta.data);
       this.loading = false;
       this.reinicioInput();
-      alert('Archivo creado');
+      this.toastr.success('Archivo creado');
     } catch (error) {
       this.loading = false;
       console.log(error);
@@ -234,7 +236,7 @@ export class CargarArchivoComponent implements OnInit {
       );
       this.mappearArchivo(result?.data);
       this.loading = false;
-      alert('Item eliminado');
+      this.toastr.success('Item eliminado');
     } catch (error) {
       this.loading = false;
       console.log(error);

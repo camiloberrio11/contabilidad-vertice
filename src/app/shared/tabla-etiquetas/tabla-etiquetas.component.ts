@@ -3,6 +3,7 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 import { BackendService } from 'src/app/core/services/backend.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tabla-etiquetas',
@@ -19,7 +20,8 @@ export class TablaEtiquetasComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private readonly backendService: BackendService
+    private readonly backendService: BackendService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +63,7 @@ export class TablaEtiquetasComponent implements OnInit {
 
   private async handleActualizarEtiqueta(): Promise<void> {
     if (this.formularioEditarEtiqueta?.invalid) {
-      alert('Formulario no válido');
+      this.toastr.error('Formulario no válido');
       return;
     }
     this.loading = true;

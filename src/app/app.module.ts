@@ -49,6 +49,7 @@ import { DndModule } from 'ngx-drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TreeviewModule } from 'ngx-treeview';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { TreeviewModule } from 'ngx-treeview';
     DragDropModule,
     NgDragDropModule.forRoot(),
     TreeviewModule.forRoot(),
+    ToastrModule.forRoot(),
   ],
   providers: [SharedService],
   bootstrap: [AppComponent],

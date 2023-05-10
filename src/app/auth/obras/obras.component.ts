@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { Obra } from 'src/app/models/Obra';
 
@@ -11,7 +12,10 @@ export class ObrasComponent implements OnInit {
   loading = false;
   listadoObras: Obra[] = [];
   nombreObra = '';
-  constructor(private readonly backendService: BackendService) {}
+  constructor(
+    private readonly backendService: BackendService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.obtenerObras();
@@ -24,14 +28,14 @@ export class ObrasComponent implements OnInit {
   async handleGuardar(): Promise<void> {
     try {
       if (!this.nombreObra) {
-        alert('Debe tener un nombre');
+        this.toastr.error('La obra debe tener un nombre');
         return;
       }
       this.loading = true;
       await this.backendService.crearObra({ nombre: this.nombreObra });
       this.nombreObra = '';
       this.loading = false;
-      alert('Obra creada');
+      this.toastr.success('Obra creada');
       this.obtenerObras();
     } catch (error) {
       console.log(error);

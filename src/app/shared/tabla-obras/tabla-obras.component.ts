@@ -3,6 +3,7 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 import { Obra } from 'src/app/models/Obra';
 import { BackendService } from 'src/app/core/services/backend.service';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tabla-obras',
@@ -19,7 +20,8 @@ export class TablaObrasComponent implements OnInit, OnChanges {
 
   constructor(
     private modalService: NgbModal,
-    private readonly backendService: BackendService // public service: CountryService
+    private readonly backendService: BackendService,
+    private toastr: ToastrService
   ) {
   }
   ngOnInit(): void {}
@@ -52,7 +54,7 @@ export class TablaObrasComponent implements OnInit, OnChanges {
 
   private async handleActualizarObra(): Promise<void> {
     if (this.formularioEditarObra?.invalid) {
-      alert('Formulario no válido');
+      this.toastr.error('Formulario no válido');
       return;
     }
     this.loading = true;

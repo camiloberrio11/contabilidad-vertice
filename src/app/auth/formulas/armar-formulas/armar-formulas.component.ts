@@ -9,6 +9,7 @@ import { Archivo } from 'src/app/models/Archivo';
 import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import Swal from 'sweetalert2';
 import { construirArbol } from '../../helpers/archivo';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-armar-formulas',
@@ -38,7 +39,10 @@ export class ArmarFormulasComponent implements OnInit {
   selectedItemsMath: number;
   archivoExcel: any[] = [];
 
-  constructor(private readonly backendService: BackendService) {
+  constructor(
+    private readonly backendService: BackendService,
+    private toastr: ToastrService
+  ) {
     this.formBuild();
     this.itemsArbolEstado();
   }
@@ -91,35 +95,30 @@ export class ArmarFormulasComponent implements OnInit {
   }
 
   buscar() {
-    const archivoVentas: any = this.listadoVentas.find(
-      (it) =>
-        it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoVentas
-    );
-    const archivoCostos: any = this.listadoCostos.find(
-      (it) =>
-        it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoCostos
-    );
+    try {
+      const archivoVentas: any = this.listadoVentas.find(
+        (it) =>
+          it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoVentas
+      );
+      const archivoCostos: any = this.listadoCostos.find(
+        (it) =>
+          it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoCostos
+      );
+      const resultadoCostos = construirArbol(archivoCostos?.Informacion);
+      const resultadoVentas = construirArbol(archivoVentas?.Informacion);
+      this.itemsVentas = resultadoVentas.map((obj: any) => {
+        return this.convertToTreeviewItem(obj);
+      });
+      this.itemsCostos = resultadoCostos.map((obj: any) => {
+        return this.convertToTreeviewItem(obj);
+      });
 
-    const resultadoCostos = construirArbol(archivoCostos?.Informacion);
-    const resultadoVentas = construirArbol(archivoVentas?.Informacion);
-
-    this.itemsCostos = resultadoCostos.map((obj: any) => {
-      return this.convertToTreeviewItem(obj);
-    });
-
-    this.itemsVentas = resultadoVentas.map((obj: any) => {
-      return this.convertToTreeviewItem(obj);
-    });
-
-    this.resultadosEnArchivos =
-      this.itemsCostos?.length > 0 || this.itemsVentas?.length > 0;
+      this.resultadosEnArchivos =
+        this.itemsCostos?.length > 0 || this.itemsVentas?.length > 0;
+    } catch (error) {
+      console.log(error);
+    }
   }
-
-  // private mappearArchivo(listadoArchivo: RegistroArchivoItem[]): void {
-  //   this.loading = true;
-  //   this.files1 = construirArbol(listadoArchivo);
-  //   this.loading = false;
-  // }
 
   itemsArbolEstado(): void {
     this.itemsVentas?.forEach((item) => {
@@ -161,7 +160,7 @@ export class ArmarFormulasComponent implements OnInit {
     });
     this.changeTextArea(`0`);
     this.itemsArbolEstado();
-    alert('Item guardado');
+    this.toastr.success('Item guardado');
   }
 
   alertFinalizarArchivo(): void {
@@ -221,19 +220,29 @@ export class ArmarFormulasComponent implements OnInit {
 
   // Funcionabilidad libreria
   convertToTreeviewItem(obj: any): TreeviewItem {
-    const item = new TreeviewItem({
-      text: obj.data.nombre,
-      value: obj.data.codigo,
-      checked: false,
-      collapsed: true,
-    });
+    try {
+      const item = new TreeviewItem({
+        text: obj.data.nombre,
+        value: obj.data.codigo,
+        checked: false,
+        collapsed: true,
+      });
 
-    if (obj.children && obj.children?.length > 0) {
-      item.children = obj.children.map((child: any) => {
-        return this.convertToTreeviewItem(child);
+      if (obj.children && obj.children?.length > 0) {
+        item.children = obj.children.map((child: any) => {
+          return this.convertToTreeviewItem(child);
+        });
+      }
+
+      return item;
+    } catch (error) {
+      console.log(`Error ${JSON.stringify(error)}`, obj);
+      return new TreeviewItem({
+        text: '',
+        value: '',
+        checked: false,
+        collapsed: true,
       });
     }
-
-    return item;
   }
 }

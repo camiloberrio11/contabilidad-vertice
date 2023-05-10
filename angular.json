@@ -34,7 +34,8 @@
               "node_modules/primeng/resources/primeng.min.css",
               "src/assets/vendor/owl-carousel/owl.carousel.css",
               "src/assets/css/style.css",
-              "src/assets/css/dashboard.css"
+              "src/assets/css/dashboard.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
