@@ -20,6 +20,7 @@ import {
   RespuestaAsignarEtiqueta,
 } from 'src/app/models/AsignacionEtiqueta';
 import { BodyCrearArchivo } from 'src/app/models/Excel';
+import { RespuestaEtiquetados } from 'src/app/models/Etiquetados';
 
 @Injectable({
   providedIn: 'root',
@@ -120,6 +121,12 @@ export class BackendService {
       this.http.post<any>(`${environment?.urlBackend}/api/excel`, {
         ...info,
       })
+    );
+  }
+
+  obtenerInformacionEtiquetados(id: string): Promise<RespuestaEtiquetados> {
+    return firstValueFrom(
+      this.http.get<any>(`${environment?.urlBackend}/api/etiquetados/${id}`)
     );
   }
 }

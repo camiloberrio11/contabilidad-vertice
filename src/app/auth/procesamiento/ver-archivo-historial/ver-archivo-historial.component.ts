@@ -36,7 +36,6 @@ export class VerArchivoHistorialComponent {
       this.route?.navigate(['admin/historial-archivos']);
       return;
     }
-    console.log(this.state?.info);
     this.mappearArchivo(this.state?.info);
     this.formularioAsignarEtiqueta.patchValue({
       idArchivoCreado: this?.state?.id,

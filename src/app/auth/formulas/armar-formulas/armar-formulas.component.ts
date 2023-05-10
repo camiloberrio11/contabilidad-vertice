@@ -10,6 +10,7 @@ import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import Swal from 'sweetalert2';
 import { construirArbol } from '../../helpers/archivo';
 import { ToastrService } from 'ngx-toastr';
+const TIPO_ARCHIVO = ['VENTAS', 'COSTOS'];
 
 @Component({
   selector: 'app-armar-formulas',
@@ -94,7 +95,7 @@ export class ArmarFormulasComponent implements OnInit {
     }
   }
 
-  buscar() {
+  async buscar() {
     try {
       const archivoVentas: any = this.listadoVentas.find(
         (it) =>
@@ -104,8 +105,18 @@ export class ArmarFormulasComponent implements OnInit {
         (it) =>
           it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoCostos
       );
-      const resultadoCostos = construirArbol(archivoCostos?.Informacion);
-      const resultadoVentas = construirArbol(archivoVentas?.Informacion);
+
+      const informacionVentas = await this.getInformacion(
+        archivoVentas?._id,
+        'ventas'
+      );
+      const informacionCostos = await this.getInformacion(
+        archivoCostos?._id,
+        'costos'
+      );
+
+      const resultadoCostos = construirArbol(informacionCostos?.data || []);
+      const resultadoVentas = construirArbol(informacionVentas?.data || []);
       this.itemsVentas = resultadoVentas.map((obj: any) => {
         return this.convertToTreeviewItem(obj);
       });
@@ -117,6 +128,17 @@ export class ArmarFormulasComponent implements OnInit {
         this.itemsCostos?.length > 0 || this.itemsVentas?.length > 0;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async getInformacion(id: string, tipoArchivo: string): Promise<any> {
+    try {
+      const informacion =
+        await this.backendService.obtenerInformacionEtiquetados(id);
+      return informacion;
+    } catch (error: any) {
+      const message = error?.error ? error?.error?.message : '';
+      this.toastr.error(`${message} para el archivo ${tipoArchivo}`);
     }
   }
 

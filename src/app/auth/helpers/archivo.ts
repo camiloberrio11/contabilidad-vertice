@@ -7,10 +7,10 @@ export function construirArbol(
   const roots = [];
 
   // Crear objeto que contiene todos los nodos del árbol
-  for (let i = 0; i < listadoItems.length; i++) {
+  for (let i = 0; i < listadoItems?.length; i++) {
     const item = listadoItems[i];
     const id = item.data.codigo;
-    const parentId = item.data.papaId;
+    const parentId = item?.data?.papaId;
     tree[id] = { ...item, children: tree[id]?.children || [] };
 
     // Si el nodo no tiene padre, es una raíz del árbol
@@ -19,7 +19,7 @@ export function construirArbol(
     } else {
       // De lo contrario, lo añades como hijo de su padre correspondiente
       tree[parentId] = tree[parentId] || { children: [] };
-      tree[parentId].children.push(tree[id]);
+      tree[parentId]?.children.push(tree[id]);
     }
   }
 
