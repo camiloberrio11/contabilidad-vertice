@@ -10,7 +10,6 @@ import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import Swal from 'sweetalert2';
 import { construirArbol } from '../../helpers/archivo';
 import { ToastrService } from 'ngx-toastr';
-const TIPO_ARCHIVO = ['VENTAS', 'COSTOS'];
 
 @Component({
   selector: 'app-armar-formulas',
@@ -26,6 +25,9 @@ export class ArmarFormulasComponent implements OnInit {
 
   itemsVentas: TreeviewItem[] = [];
   itemsCostos: TreeviewItem[] = [];
+
+  informacionVentas: any[] = [];
+  informacionCostos: any[] = [];
 
   config: TreeviewConfig = {
     hasAllCheckBox: false,
@@ -55,20 +57,27 @@ export class ArmarFormulasComponent implements OnInit {
   onSelectedChangeVentas(event: number[]) {
     console.log(event);
     if (event.length > 0) {
-      this.selectedItems = `${this.selectedItems}+${event?.pop()}`;
-      this.selectedItemsMath = eval(this.selectedItems);
-    } else {
-      this.selectedItems = `0`;
-      this.selectedItemsMath = eval(this.selectedItems);
+      const sumaConsolidado = event.reduce((acumulador, id) => {
+        const objeto = this.informacionVentas?.find(
+          (it) => it?.data?.codigo === id
+        );
+        const consolidado = parseInt(objeto.data.consolidado);
+        return acumulador + consolidado;
+      }, 0);
+      this.changeTextArea(`${this.selectedItems}+${sumaConsolidado}`);
     }
   }
 
   onSelectedChangeCostos(event: number[]) {
-    console.log(event);
     if (event.length > 0) {
-      this.changeTextArea(`${this.selectedItems}+${event?.pop()}`);
-    } else {
-      this.changeTextArea(`0`);
+      const sumaConsolidado = event.reduce((acumulador, id) => {
+        const objeto = this.informacionCostos?.find(
+          (it) => it?.data?.codigo === id
+        );
+        const consolidado = parseInt(objeto.data.consolidado);
+        return acumulador + consolidado;
+      }, 0);
+      this.changeTextArea(`${this.selectedItems}+${sumaConsolidado}`);
     }
   }
 
@@ -97,38 +106,54 @@ export class ArmarFormulasComponent implements OnInit {
 
   async buscar() {
     try {
-      const archivoVentas: any = this.listadoVentas.find(
-        (it) =>
-          it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoVentas
+      const archivoVentas = this.getArchivoById(
+        this.formularioCrearEtiqueta.value.itemSeleccionadoVentas,
+        'VENTAS'
       );
-      const archivoCostos: any = this.listadoCostos.find(
-        (it) =>
-          it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoCostos
+      const archivoCostos = this.getArchivoById(
+        this.formularioCrearEtiqueta.value.itemSeleccionadoCostos,
+        'COSTOS'
       );
-
-      const informacionVentas = await this.getInformacion(
+      const informacionVentasInfo = await this.getInformacion(
         archivoVentas?._id,
         'ventas'
       );
-      const informacionCostos = await this.getInformacion(
+      const informacionCostosInfo = await this.getInformacion(
         archivoCostos?._id,
         'costos'
       );
 
-      const resultadoCostos = construirArbol(informacionCostos?.data || []);
-      const resultadoVentas = construirArbol(informacionVentas?.data || []);
+      this.informacionVentas = informacionVentasInfo?.data || [];
+      this.informacionCostos = informacionCostosInfo?.data || [];
+
+      const resultadoCostos = construirArbol(this.informacionCostos);
+      const resultadoVentas = construirArbol(this.informacionVentas);
       this.itemsVentas = resultadoVentas.map((obj: any) => {
         return this.convertToTreeviewItem(obj);
       });
       this.itemsCostos = resultadoCostos.map((obj: any) => {
         return this.convertToTreeviewItem(obj);
       });
-
       this.resultadosEnArchivos =
         this.itemsCostos?.length > 0 || this.itemsVentas?.length > 0;
     } catch (error) {
       console.log(error);
     }
+  }
+
+  getArchivoById(id: string, tipoArchivo: 'VENTAS' | 'COSTOS') {
+    if (tipoArchivo === 'COSTOS') {
+      const archivoCostos: any = this.listadoCostos.find(
+        (it) =>
+          it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoCostos
+      );
+      return archivoCostos;
+    }
+    const archivoVentas: any = this.listadoVentas.find(
+      (it) =>
+        it?._id === this.formularioCrearEtiqueta.value.itemSeleccionadoVentas
+    );
+    return archivoVentas;
   }
 
   async getInformacion(id: string, tipoArchivo: string): Promise<any> {
